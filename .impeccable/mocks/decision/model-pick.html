@@ -1,0 +1,37 @@
+<!doctype html><html lang="th"><head><meta charset="utf-8">
+<link href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@600;700&family=Anuphan:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{--asph:#26282C;--asph2:#33363B;--paint:#F2C230;--ground:#F1F1EE;--ink:#1E2024;--muted:#62666D;--b1:#3A86C8}
+*{box-sizing:border-box;margin:0}
+body{width:1440px;height:900px;overflow:hidden;background:var(--ground);font-family:Anuphan,sans-serif;color:var(--ink);line-height:1.6}
+.s{font-family:"Chakra Petch",sans-serif}
+header{height:64px;background:var(--asph);display:flex;align-items:center;padding:0 40px;gap:28px;color:#fff;border-bottom:4px solid var(--paint)}
+header b{font-size:22px}
+header nav{margin-left:auto;display:flex;gap:24px;color:#E1E3E6;font-size:15px}
+header nav .on{color:var(--paint);font-weight:600}
+.hero{background:var(--asph);color:#fff;display:grid;grid-template-columns:auto 1fr 460px;gap:40px;align-items:center;padding:36px 40px}
+.big{font:700 150px/1 "Chakra Petch";color:var(--paint);letter-spacing:-.02em}
+.hero h1{font-size:30px}.hero p{color:#B9BDC3}
+.free{font:700 64px/1 "Chakra Petch";font-variant-numeric:tabular-nums}.free small{font-size:20px;color:#B9BDC3}
+form{display:flex;gap:8px}
+input{flex:1;height:54px;border:0;border-radius:4px;padding:0 16px;font:inherit}
+button{height:54px;padding:0 20px;border:0;border-radius:4px;background:var(--paint);font:700 16px "Chakra Petch"}
+.floors{display:flex;gap:8px;margin-top:12px}
+.floors span{padding:6px 14px;border:2px solid #555;border-radius:4px;font:600 15px "Chakra Petch"}
+.floors .on{border-color:var(--paint);color:var(--paint)}
+.deck{margin:28px 40px;background:var(--asph2);border-radius:8px;padding:28px;display:grid;grid-template-columns:repeat(12,1fr);gap:0;row-gap:28px}
+.bay{height:84px;border-left:3px solid #fff;display:grid;place-items:end center;padding-bottom:8px;font:600 14px "Chakra Petch";color:#fff}
+.bay:nth-child(12n){border-right:3px solid #fff}
+.bay.t{background:#4A4E55}
+.bay.me{background:var(--paint);color:var(--ink)}
+.bay.r{background:repeating-linear-gradient(45deg,#3a3d42 0 8px,#33363B 8px 16px)}
+</style></head><body>
+<header><b class="s">EASY PARKING</b><span style="color:#B9BDC3">อีซี่ มอลล์ พระราม 9</span><nav><span class="on">ช่องว่าง</span><span>ชำระค่าจอด</span><span>จองล่วงหน้า</span><span>ประวัติ</span></nav></header>
+<section class="hero"><div class="big">B1</div>
+<div><h1>ชั้น B1 ว่างอยู่</h1><div class="free">16<small> / 40 ช่อง</small></div><div class="floors"><span>1 · 11</span><span class="on">B1 · 16</span><span>B2 · 3</span></div></div>
+<div><p style="margin-bottom:10px">ค้นหารถหรือชำระค่าจอด</p><form><input placeholder="กรอกทะเบียน เช่น กข 1234"><button>ค้นหา</button></form><p style="margin-top:10px;font-size:14px">ชั่วโมงละ 20 บาท · 15 นาทีแรกฟรี · สูงสุด 300 บาท/วัน</p></div></section>
+<section class="deck">
+<div class="bay t">A01</div><div class="bay">A02</div><div class="bay t">A03</div><div class="bay t">A04</div><div class="bay">A05</div><div class="bay t">A06</div><div class="bay r">A07</div><div class="bay">A08</div><div class="bay t">A09</div><div class="bay t">A10</div><div class="bay">A11</div><div class="bay t">A12</div>
+<div class="bay">B01</div><div class="bay t">B02</div><div class="bay t">B03</div><div class="bay me">B04</div><div class="bay t">B05</div><div class="bay">B06</div><div class="bay t">B07</div><div class="bay">B08</div><div class="bay t">B09</div><div class="bay r">B10</div><div class="bay">B11</div><div class="bay t">B12</div>
+<div class="bay t">C01</div><div class="bay">C02</div><div class="bay t">C03</div><div class="bay">C04</div><div class="bay t">C05</div><div class="bay t">C06</div><div class="bay">C07</div><div class="bay t">C08</div><div class="bay">C09</div><div class="bay t">C10</div><div class="bay t">C11</div><div class="bay">C12</div>
+</section></body></html>

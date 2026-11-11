@@ -1,0 +1,22 @@
+{
+  "detector": {
+    "ignoreRules": [],
+    "ignoreFiles": [
+      ".impeccable/mocks/decision/assigned.html",
+      ".impeccable/mocks/decision/model-pick.html",
+      ".impeccable/mocks/decision/challenger-flap.html",
+      ".impeccable/mocks/decision/canon.html"
+    ],
+    "ignoreValues": [
+      {
+        "rule": "cramped-padding",
+        "value": "*",
+        "files": [
+          ".impeccable/mocks/decision/challenger-flap.html"
+        ],
+        "createdAt": "2026-11-09T07:23:40.732Z",
+        "reason": "model: unchosen decision-round sketch (split-flap card), not shipped UI"
+      }
+    ]
+  }
+}

@@ -1,0 +1,108 @@
+@import "tailwindcss";
+
+/* ===== Easy Parking theme: "car-park floor paint" =====
+   asphalt = header/deck, paint = yellow line paint (main button, active item, the driver's own slot)
+   lvl-*   = level colours for each floor, the way car parks paint their pillars
+   Take colours from this file only */
+@theme {
+  --color-asphalt: #26282c;
+  --color-asphalt-deep: #1a1b1e;
+  --color-asphalt-2: #34373c;
+  --color-asphalt-3: #4a4e55;
+  --color-paint: #f2c230;
+  --color-paint-hi: #f7d457;
+  --color-paint-ink: #7a5a00;
+  --color-paint-soft: #fbefc4;
+  --color-ink: #1e2024;
+  --color-muted: #595d65;
+  --color-line: #e1e2dd;
+  --color-surface: #f3f3f0;
+  --color-ok: #1f7a45;
+  --color-warn: #9a5b00;
+  --color-bad: #b83227;
+  /* status colours for asphalt backgrounds */
+  --color-ok-lt: #86d9a6;
+  --color-bad-lt: #ff9e92;
+
+  --color-lvl-a: #2f6db5;
+  --color-lvl-b: #c2521c;
+  --color-lvl-c: #2c7a4b;
+  --color-lvl-d: #6b4bb8;
+
+  /* Shape + depth: soft radii, cards lifted by a hairline ring and a wide, faint shadow */
+  --radius-md: 0.625rem;
+  --radius-lg: 1rem;
+  --shadow-card: 0 0 0 1px rgb(30 32 36 / 0.06), 0 1px 2px rgb(30 32 36 / 0.04), 0 12px 32px -16px rgb(30 32 36 / 0.16);
+  --shadow-lift: 0 0 0 1px rgb(30 32 36 / 0.08), 0 2px 4px rgb(30 32 36 / 0.05), 0 18px 40px -18px rgb(30 32 36 / 0.24);
+}
+
+/* Fonts come from next/font in app/layout.tsx */
+@theme inline {
+  --font-display: var(--font-chakra), "Chakra Petch", sans-serif;
+  --font-body: var(--font-anuphan), "Anuphan", sans-serif;
+}
+
+html {
+  scrollbar-color: var(--color-asphalt-3) var(--color-surface);
+  accent-color: var(--color-paint-ink);
+}
+
+body {
+  @apply bg-surface text-ink font-body antialiased;
+  line-height: 1.65;
+}
+
+h1, h2, h3 {
+  @apply font-display;
+  line-height: 1.25;
+  text-wrap: balance;
+}
+
+::selection { background: var(--color-paint); color: var(--color-ink); }
+input, textarea { caret-color: var(--color-paint-ink); }
+
+:focus-visible {
+  outline: 3px solid var(--color-paint);
+  outline-offset: 2px;
+}
+
+@layer base {
+  /* grid items can shrink to fit the screen (stops the map pushing the page wider) */
+  .grid > * { min-width: 0; }
+  input:not([type="checkbox"]):not([type="radio"]), select, textarea { background-color: #fff; }
+  input::placeholder { color: #6b6f76; }
+
+  /* Every control answers the pointer: colour eases, a press sinks it 1px */
+  a, button, select, input, textarea {
+    transition: background-color .18s ease, border-color .18s ease, color .18s ease, box-shadow .18s ease, transform .12s ease;
+  }
+  button:not(:disabled):active, a[class*="bg-paint"]:active { transform: translateY(1px); }
+}
+
+a { text-underline-offset: 3px; }
+
+.num {
+  font-variant-numeric: tabular-nums;
+}
+
+@keyframes scan-sweep { from { top: 10%; } to { top: 88%; } }
+@keyframes gate-up { from { transform: rotate(0); } to { transform: rotate(-80deg); } }
+@keyframes blink { 50% { opacity: .2; } }
+/* Floor switch: the map fades in after a floor is picked */
+@keyframes deck-in { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: none; } }
+.deck-in { animation: deck-in .35s cubic-bezier(.16, 1, .3, 1); }
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation-duration: 0.01ms !important; animation-iteration-count: 1 !important; transition-duration: 0.01ms !important; }
+}
+
+/* ===== พิมพ์รายงาน / บันทึกเป็น PDF ===== */
+@media print {
+  @page { size: A4; margin: 12mm; }
+  body { background: #fff; }
+  aside, header, nav, .no-print { display: none !important; }   /* ซ่อน Sidebar, Navbar, ปุ่ม */
+  main { padding: 0 !important; }
+  section { break-inside: avoid; box-shadow: none !important; border: 1px solid #ddd; }
+  .print-only { display: block !important; }
+}
+.print-only { display: none; }

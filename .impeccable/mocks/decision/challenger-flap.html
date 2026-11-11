@@ -1,0 +1,36 @@
+<!doctype html><html lang="th"><head><meta charset="utf-8">
+<link href="https://fonts.googleapis.com/css2?family=Sarabun:wght@400;600&family=Saira+Condensed:wght@600;700&display=swap" rel="stylesheet">
+<style>
+:root{--board:#111214;--flap:#1D1F23;--white:#F4F4F0;--amber:#F2A900;--red:#C8423B;--steel:#8A8D93;--ground:#ECECE8}
+*{box-sizing:border-box;margin:0}
+body{width:1440px;height:900px;overflow:hidden;background:var(--ground);font-family:Sarabun,sans-serif;color:#151618;line-height:1.6}
+.c{font-family:"Saira Condensed",sans-serif;text-transform:uppercase}
+header{height:60px;background:var(--board);color:var(--white);display:flex;align-items:center;padding:0 40px;gap:24px;border-bottom:1px solid #2A2C31}
+header b{font-size:24px;letter-spacing:.04em}
+header nav{margin-left:auto;display:flex;gap:22px;color:var(--steel)}
+header nav .on{color:var(--white)}
+.board{background:var(--board);padding:24px 40px 32px;color:var(--white)}
+.head{display:grid;grid-template-columns:120px 1fr 220px 200px 200px;color:var(--steel);font:600 16px "Saira Condensed";letter-spacing:.08em;padding:0 0 10px;border-bottom:1px solid #2A2C31}
+.row{display:grid;grid-template-columns:120px 1fr 220px 200px 200px;align-items:center;height:96px;border-bottom:1px solid #2A2C31}
+.cells{display:flex;gap:4px}
+.cells span{width:52px;height:68px;background:var(--flap);border-radius:4px;display:grid;place-items:center;font:700 52px "Saira Condensed";position:relative}
+.cells span::after{content:"";position:absolute;left:0;right:0;top:50%;height:1px;background:#000}
+.st{font:700 26px "Saira Condensed"}
+.st.a{color:var(--amber)}
+.work{display:grid;grid-template-columns:480px 1fr;gap:32px;padding:32px 40px}
+form{display:flex;gap:8px}
+input{flex:1;height:52px;border:1px solid #C9CAC4;border-radius:6px;padding:0 16px;font:inherit;background:#fff}
+button{height:52px;padding:0 20px;border:0;border-radius:6px;background:var(--board);color:#fff;font:600 18px "Saira Condensed"}
+.mini{display:grid;grid-template-columns:repeat(12,1fr);gap:5px;background:#fff;border:1px solid #D5D6D0;border-radius:10px;padding:18px}
+.mini i{height:40px;border-radius:4px;background:#DADBD6}.mini i.f{background:#fff;border:1.5px solid #151618}
+</style></head><body>
+<header><b class="c">Easy Parking</b><span style="color:var(--steel)">อีซี่ มอลล์ พระราม 9</span><nav><span class="on">ช่องว่าง</span><span>ชำระค่าจอด</span><span>จองล่วงหน้า</span><span>ประวัติ</span></nav></header>
+<section class="board">
+<div class="head c"><span>ชั้น</span><span>โซน</span><span>ว่าง</span><span>ทั้งหมด</span><span>สถานะ</span></div>
+<div class="row"><div class="cells"><span>1</span></div><span style="font-size:20px">ใกล้ทางเข้าห้าง</span><div class="cells"><span>1</span><span>1</span></div><span class="st">24</span><span class="st">ว่างมาก</span></div>
+<div class="row"><div class="cells"><span>B</span><span>1</span></div><span style="font-size:20px">ลานหลัก</span><div class="cells"><span>1</span><span>6</span></div><span class="st">40</span><span class="st">ว่าง</span></div>
+<div class="row"><div class="cells"><span>B</span><span>2</span></div><span style="font-size:20px">ลานล่าง</span><div class="cells"><span>0</span><span>3</span></div><span class="st">36</span><span class="st a">ใกล้เต็ม</span></div>
+</section>
+<section class="work"><div><h2 class="c" style="font-size:30px">ค้นหารถ / ชำระเงิน</h2><p style="color:#5E6066;margin-bottom:14px">ชั่วโมงละ 20 บาท · 15 นาทีแรกฟรี</p><form><input placeholder="กรอกทะเบียน เช่น กข 1234"><button>ค้นหา</button></form></div>
+<div class="mini"><i></i><i class="f"></i><i></i><i></i><i class="f"></i><i></i><i></i><i class="f"></i><i></i><i></i><i class="f"></i><i></i><i class="f"></i><i></i><i></i><i class="f"></i><i></i><i class="f"></i><i></i><i></i><i class="f"></i><i></i><i></i><i class="f"></i></div></section>
+</body></html>

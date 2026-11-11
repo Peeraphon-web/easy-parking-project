@@ -1,0 +1,571 @@
+{
+  "schemaVersion": 2,
+  "generatedAt": "2026-11-09T07:37:40.379Z",
+  "title": "Design System: Easy Parking",
+  "extensions": {
+    "colorMeta": {
+      "asphalt": {
+        "role": "neutral",
+        "displayName": "Asphalt",
+        "canonical": "oklch(27.6% 0.008 264.4)",
+        "tonalRamp": [
+          "#090b0f",
+          "#232529",
+          "#404246",
+          "#5f6166",
+          "#808287",
+          "#a2a5aa",
+          "#c6c9ce",
+          "#eceef4"
+        ]
+      },
+      "asphalt-deep": {
+        "role": "neutral",
+        "displayName": "Asphalt Deep",
+        "canonical": "oklch(22.2% 0.006 271.1)",
+        "tonalRamp": [
+          "#0a0b0e",
+          "#242528",
+          "#414245",
+          "#606165",
+          "#818286",
+          "#a3a5a9",
+          "#c7c9cd",
+          "#edeef3"
+        ]
+      },
+      "asphalt-2": {
+        "role": "neutral",
+        "displayName": "Asphalt 2",
+        "canonical": "oklch(33.6% 0.010 260.7)",
+        "tonalRamp": [
+          "#090b0f",
+          "#22252a",
+          "#3f4247",
+          "#5e6167",
+          "#7f8288",
+          "#a2a5ab",
+          "#c6c9d0",
+          "#ebeff5"
+        ]
+      },
+      "asphalt-3": {
+        "role": "neutral",
+        "displayName": "Asphalt 3",
+        "canonical": "oklch(42.3% 0.013 261.8)",
+        "tonalRamp": [
+          "#080b11",
+          "#22252b",
+          "#3e4249",
+          "#5d6169",
+          "#7e838a",
+          "#a1a5ad",
+          "#c5c9d2",
+          "#eaeff7"
+        ]
+      },
+      "paint": {
+        "role": "primary",
+        "displayName": "Line Yellow",
+        "canonical": "oklch(83.4% 0.158 89.0)",
+        "tonalRamp": [
+          "#100a00",
+          "#2f2301",
+          "#523f01",
+          "#775e0f",
+          "#9f7e14",
+          "#ca9f00",
+          "#f3c331",
+          "#feedc3"
+        ]
+      },
+      "paint-hi": {
+        "role": "primary",
+        "displayName": "Line Yellow Bright",
+        "canonical": "oklch(87.7% 0.146 93.4)",
+        "tonalRamp": [
+          "#100b00",
+          "#2e2401",
+          "#504102",
+          "#735f11",
+          "#9a8017",
+          "#c4a20a",
+          "#e9c647",
+          "#feeeb9"
+        ]
+      },
+      "paint-ink": {
+        "role": "primary",
+        "displayName": "Paint Ink",
+        "canonical": "oklch(48.8% 0.100 84.4)",
+        "tonalRamp": [
+          "#110a00",
+          "#312302",
+          "#543e05",
+          "#7c5b03",
+          "#9e7d33",
+          "#c2a057",
+          "#e8c47b",
+          "#ffecc8"
+        ]
+      },
+      "paint-soft": {
+        "role": "primary",
+        "displayName": "Paint Wash",
+        "canonical": "oklch(95.1% 0.057 94.3)",
+        "tonalRamp": [
+          "#100b00",
+          "#2d2401",
+          "#4c411b",
+          "#6c613b",
+          "#8d825b",
+          "#b0a57c",
+          "#d5c99f",
+          "#fbefc4"
+        ]
+      },
+      "ink": {
+        "role": "neutral",
+        "displayName": "Ink",
+        "canonical": "oklch(24.3% 0.008 264.4)",
+        "tonalRamp": [
+          "#090b0f",
+          "#232529",
+          "#404246",
+          "#5f6166",
+          "#808287",
+          "#a2a5aa",
+          "#c6c9cf",
+          "#eceef4"
+        ]
+      },
+      "muted": {
+        "role": "neutral",
+        "displayName": "Muted",
+        "canonical": "oklch(47.8% 0.014 264.4)",
+        "tonalRamp": [
+          "#080b11",
+          "#22252c",
+          "#3e424a",
+          "#5d6169",
+          "#7e828b",
+          "#a1a5ae",
+          "#c5c9d2",
+          "#eaeff8"
+        ]
+      },
+      "line": {
+        "role": "neutral",
+        "displayName": "Hairline",
+        "canonical": "oklch(87.7% 0.007 115.7)",
+        "tonalRamp": [
+          "#0b0c08",
+          "#252522",
+          "#42423e",
+          "#61625d",
+          "#82837e",
+          "#a5a6a1",
+          "#c9cac5",
+          "#eeefea"
+        ]
+      },
+      "surface": {
+        "role": "neutral",
+        "displayName": "Concrete",
+        "canonical": "oklch(95.1% 0.004 121.6)",
+        "tonalRamp": [
+          "#0b0b0a",
+          "#252523",
+          "#414240",
+          "#61625f",
+          "#828380",
+          "#a4a5a3",
+          "#c8c9c7",
+          "#f3f3f0"
+        ]
+      },
+      "ok": {
+        "role": "tertiary",
+        "displayName": "Status Green",
+        "canonical": "oklch(51.4% 0.118 153.0)",
+        "tonalRamp": [
+          "#001004",
+          "#022e15",
+          "#045028",
+          "#16743f",
+          "#41965f",
+          "#65ba81",
+          "#8ae0a4",
+          "#c8fed7"
+        ]
+      },
+      "warn": {
+        "role": "tertiary",
+        "displayName": "Status Amber",
+        "canonical": "oklch(53.1% 0.119 65.1)",
+        "tonalRamp": [
+          "#150800",
+          "#381e01",
+          "#5f3703",
+          "#885311",
+          "#b27227",
+          "#d8954e",
+          "#ffb972",
+          "#feebd9"
+        ]
+      },
+      "bad": {
+        "role": "tertiary",
+        "displayName": "Status Red",
+        "canonical": "oklch(52.2% 0.173 29.0)",
+        "tonalRamp": [
+          "#1f0000",
+          "#4c0302",
+          "#7f0805",
+          "#ae271e",
+          "#d64f41",
+          "#ff7463",
+          "#feb3a8",
+          "#ffe9e5"
+        ]
+      },
+      "ok-lt": {
+        "role": "tertiary",
+        "displayName": "Status Green Light",
+        "canonical": "oklch(81.8% 0.109 156.1)",
+        "tonalRamp": [
+          "#001005",
+          "#032e18",
+          "#074f2d",
+          "#197346",
+          "#429666",
+          "#67ba88",
+          "#8cdfab",
+          "#c6ffd9"
+        ]
+      },
+      "bad-lt": {
+        "role": "tertiary",
+        "displayName": "Status Red Light",
+        "canonical": "oklch(79.5% 0.118 27.6)",
+        "tonalRamp": [
+          "#1f0000",
+          "#4b0404",
+          "#74201b",
+          "#99423a",
+          "#bf645a",
+          "#e6877c",
+          "#feb4aa",
+          "#fee9e6"
+        ]
+      },
+      "lvl-a": {
+        "role": "secondary",
+        "displayName": "Level Blue",
+        "canonical": "oklch(53.1% 0.130 254.2)",
+        "tonalRamp": [
+          "#000b1e",
+          "#00244c",
+          "#004180",
+          "#2362a9",
+          "#4684ce",
+          "#69a8f5",
+          "#a6ccfc",
+          "#e4f0fe"
+        ]
+      },
+      "lvl-b": {
+        "role": "secondary",
+        "displayName": "Level Orange",
+        "canonical": "oklch(57.6% 0.157 42.6)",
+        "tonalRamp": [
+          "#1a0400",
+          "#421502",
+          "#6f2904",
+          "#a23c02",
+          "#cd5c28",
+          "#f4804e",
+          "#feb598",
+          "#fee9e1"
+        ]
+      },
+      "lvl-c": {
+        "role": "secondary",
+        "displayName": "Level Green",
+        "canonical": "oklch(51.9% 0.107 153.7)",
+        "tonalRamp": [
+          "#001004",
+          "#022e16",
+          "#07502a",
+          "#237244",
+          "#499564",
+          "#6cb986",
+          "#91dea9",
+          "#c6ffd6"
+        ]
+      },
+      "lvl-d": {
+        "role": "secondary",
+        "displayName": "Level Violet",
+        "canonical": "oklch(50.4% 0.165 293.1)",
+        "tonalRamp": [
+          "#0f0129",
+          "#2c0362",
+          "#4a238f",
+          "#6847b4",
+          "#886ada",
+          "#aa90fb",
+          "#cbbffd",
+          "#efecfe"
+        ]
+      },
+      "panel": {
+        "role": "neutral",
+        "displayName": "Panel White",
+        "canonical": "#ffffff",
+        "tonalRamp": [
+          "#0b0b0a",
+          "#252523",
+          "#414240",
+          "#61625f",
+          "#828380",
+          "#a4a5a3",
+          "#c8c9c7",
+          "#f3f3f0"
+        ]
+      }
+    },
+    "typographyMeta": {
+      "display": {
+        "displayName": "Display",
+        "purpose": "Free count in the deck band, kiosk fee, xl floor badge. 60-72px."
+      },
+      "headline": {
+        "displayName": "Headline",
+        "purpose": "Page H1, 30px rising to 36px from sm, balanced wrap."
+      },
+      "title": {
+        "displayName": "Title",
+        "purpose": "Section H2s at 20-24px; 18px semibold for buttons, list items and floor state."
+      },
+      "figure": {
+        "displayName": "Figure",
+        "purpose": "Stat values and money, tabular numbers."
+      },
+      "body": {
+        "displayName": "Body",
+        "purpose": "Running Thai text, 16px at line height 1.65."
+      },
+      "label": {
+        "displayName": "Label",
+        "purpose": "Field labels, notes and legends at 14px; nav at 15px."
+      },
+      "bay-code": {
+        "displayName": "Bay Code",
+        "purpose": "Slot codes inside the floor map, 10px rising to 11px."
+      }
+    },
+    "shadows": [
+      {
+        "name": "none",
+        "value": "none",
+        "purpose": "The system is flat; depth is tonal (concrete, white, asphalt). The only box-shadow is an inset 2px line drawing the occupied bay in the legend."
+      }
+    ],
+    "motion": [
+      {
+        "name": "deck-in",
+        "value": "deck-in .35s cubic-bezier(.16, 1, .3, 1); from { opacity: 0; transform: translateY(6px) }",
+        "purpose": "The single transition: the floor map fades up when a floor is picked."
+      },
+      {
+        "name": "state-colour",
+        "value": "transition-colors 150ms",
+        "purpose": "Hover and active colour changes on nav, floor switch, rows and bays."
+      },
+      {
+        "name": "reduced-motion",
+        "value": "@media (prefers-reduced-motion: reduce) { animation-duration: 0.01ms; animation-iteration-count: 1; transition-duration: 0.01ms }",
+        "purpose": "Cuts all animation and transition."
+      },
+      {
+        "name": "kiosk-sim",
+        "value": "scan-sweep 1.5s ease-in-out infinite alternate; gate-up; blink 1.2s",
+        "purpose": "Kiosk camera and gate simulation only."
+      }
+    ],
+    "breakpoints": [
+      {
+        "name": "sm",
+        "value": "640px"
+      },
+      {
+        "name": "md",
+        "value": "768px"
+      },
+      {
+        "name": "lg",
+        "value": "1024px"
+      }
+    ],
+    "focus": {
+      "outline": "3px solid var(--color-paint)",
+      "outlineOffset": "2px",
+      "selection": "background paint, color ink",
+      "caret": "paint-ink",
+      "accentColor": "paint-ink",
+      "scrollbar": "asphalt-3 thumb on surface track"
+    }
+  },
+  "components": [
+    {
+      "name": "Primary Button",
+      "kind": "button",
+      "refersTo": "button-primary",
+      "description": "Line Yellow hero action; one per region.",
+      "html": "<button class=\"ds-btn-primary\">ค้นหา</button>",
+      "css": ".ds-btn-primary { font-family: var(--font-display, 'Chakra Petch', sans-serif); height: 56px; padding: 0 24px; background: var(--color-paint, #f2c230); color: var(--color-ink, #1e2024); font-size: 18px; font-weight: 700; border: 0; border-radius: 6px; cursor: pointer; transition: background-color .15s; } .ds-btn-primary:hover { background: var(--color-paint-hi, #f7d457); } .ds-btn-primary:focus-visible { outline: 3px solid var(--color-paint, #f2c230); outline-offset: 2px; }"
+    },
+    {
+      "name": "Secondary Button",
+      "kind": "button",
+      "refersTo": "button-secondary",
+      "description": "White with hairline; border darkens to ink on hover.",
+      "html": "<button class=\"ds-btn-secondary\">เปิดตู้ Kiosk ทางออก A</button>",
+      "css": ".ds-btn-secondary { font-family: var(--font-body, 'Anuphan', sans-serif); padding: 8px 12px; background: #fff; color: var(--color-ink, #1e2024); font-size: 14px; font-weight: 600; border: 1px solid var(--color-line, #e1e2dd); border-radius: 6px; cursor: pointer; } .ds-btn-secondary:hover { border-color: var(--color-ink, #1e2024); } .ds-btn-secondary:focus-visible { outline: 3px solid var(--color-paint, #f2c230); outline-offset: 2px; }"
+    },
+    {
+      "name": "Danger Button",
+      "kind": "button",
+      "refersTo": "button-danger",
+      "description": "Destructive action on light grounds.",
+      "html": "<button class=\"ds-btn-danger\">ยกเลิกการจอง</button>",
+      "css": ".ds-btn-danger { font-family: var(--font-body, 'Anuphan', sans-serif); padding: 8px 12px; background: #fff; color: var(--color-bad, #b83227); font-size: 14px; font-weight: 600; border: 1px solid rgb(184 50 39 / .4); border-radius: 6px; cursor: pointer; } .ds-btn-danger:hover { background: rgb(184 50 39 / .05); } .ds-btn-danger:focus-visible { outline: 3px solid var(--color-paint, #f2c230); outline-offset: 2px; }"
+    },
+    {
+      "name": "Field",
+      "kind": "input",
+      "refersTo": "input-field",
+      "description": "White field, ink 35-40% border, 6px corners, paint-ink caret.",
+      "html": "<input class=\"ds-input\" placeholder=\"กรอกทะเบียน เช่น กข 1234\" />",
+      "css": ".ds-input { font-family: var(--font-body, 'Anuphan', sans-serif); height: 48px; padding: 0 12px; background: #fff; color: var(--color-ink, #1e2024); font-size: 16px; border: 1px solid rgb(30 32 36 / .4); border-radius: 6px; caret-color: var(--color-paint-ink, #7a5a00); } .ds-input::placeholder { color: #6b6f76; } .ds-input:focus-visible { outline: 3px solid var(--color-paint, #f2c230); outline-offset: 2px; }"
+    },
+    {
+      "name": "Navbar",
+      "kind": "nav",
+      "refersTo": "nav-item",
+      "description": "Asphalt shell with 4px yellow rule; active item filled yellow.",
+      "html": "<header class=\"ds-nav\"><span class=\"ds-nav-mark\"><span class=\"ds-nav-p\">P</span>Easy Parking</span><nav class=\"ds-nav-items\"><a class=\"ds-nav-item ds-active\" aria-current=\"page\" href=\"#\">หน้าลาน</a><a class=\"ds-nav-item\" href=\"#\">ชำระค่าจอด</a><a class=\"ds-nav-item\" href=\"#\">จองล่วงหน้า</a></nav></header>",
+      "css": ".ds-nav { display: flex; align-items: center; gap: 20px; padding: 10px 16px; background: var(--color-asphalt, #26282c); border-bottom: 4px solid var(--color-paint, #f2c230); color: #fff; } .ds-nav-mark { font-family: var(--font-display, 'Chakra Petch', sans-serif); display: inline-flex; align-items: center; gap: 8px; font-size: 20px; font-weight: 700; letter-spacing: -.01em; } .ds-nav-p { display: grid; place-items: center; width: 28px; height: 28px; border-radius: 4px; background: var(--color-paint, #f2c230); color: var(--color-ink, #1e2024); font-size: 16px; } .ds-nav-items { display: flex; gap: 4px; margin-left: auto; } .ds-nav-item { font-family: var(--font-body, 'Anuphan', sans-serif); padding: 8px 12px; border-radius: 6px; font-size: 15px; color: rgb(255 255 255 / .85); text-decoration: none; transition: background-color .15s; } .ds-nav-item:hover { background: rgb(255 255 255 / .1); color: #fff; } .ds-nav-item.ds-active { background: var(--color-paint, #f2c230); color: var(--color-ink, #1e2024); font-weight: 600; } .ds-nav-item:focus-visible { outline: 3px solid var(--color-paint, #f2c230); outline-offset: 2px; }"
+    },
+    {
+      "name": "Floor Badge",
+      "kind": "custom",
+      "refersTo": "floor-badge-md",
+      "description": "Level-colour square with the stencilled floor code; same object at every size.",
+      "html": "<span class=\"ds-floor-row\"><span class=\"ds-badge ds-xs ds-lvl-a\" aria-label=\"ชั้น B1\">B1</span><span class=\"ds-badge ds-sm ds-lvl-b\" aria-label=\"ชั้น B2\">B2</span><span class=\"ds-badge ds-md ds-lvl-c\" aria-label=\"ชั้น 1\">1</span><span class=\"ds-badge ds-lg ds-lvl-d\" aria-label=\"ชั้น 2\">2</span></span>",
+      "css": ".ds-floor-row { display: flex; align-items: center; gap: 12px; } .ds-badge { font-family: var(--font-display, 'Chakra Petch', sans-serif); display: inline-grid; place-items: center; font-weight: 700; line-height: 1; color: #fff; } .ds-xs { height: 24px; min-width: 24px; padding: 0 4px; font-size: 12px; border-radius: 4px; } .ds-sm { height: 32px; min-width: 32px; padding: 0 6px; font-size: 14px; border-radius: 5px; } .ds-md { height: 44px; min-width: 44px; padding: 0 8px; font-size: 18px; border-radius: 6px; } .ds-lg { height: 64px; min-width: 64px; padding: 0 12px; font-size: 30px; border-radius: 6px; } .ds-lvl-a { background: var(--color-lvl-a, #2f6db5); } .ds-lvl-b { background: var(--color-lvl-b, #c2521c); } .ds-lvl-c { background: var(--color-lvl-c, #2c7a4b); } .ds-lvl-d { background: var(--color-lvl-d, #6b4bb8); }"
+    },
+    {
+      "name": "Floor Map Bays",
+      "kind": "custom",
+      "refersTo": "floor-map",
+      "description": "White bay lines on asphalt, open to the aisle; busy = grey block, reserved = dashed, own slot = the only yellow.",
+      "html": "<div class=\"ds-map\"><div class=\"ds-bays\"><div class=\"ds-bay\" title=\"B1-01 · ว่าง\"><span class=\"ds-fill\">01</span></div><div class=\"ds-bay\" title=\"B1-02 · มีรถ\"><span class=\"ds-fill ds-busy\">02</span></div><div class=\"ds-bay ds-res\" title=\"B1-03 · ถูกจอง\"><span class=\"ds-fill\">03</span></div><div class=\"ds-bay ds-end\" title=\"B1-04 · ว่าง · ช่องของคุณ\"><span class=\"ds-fill ds-mine\">04</span></div></div><div class=\"ds-aisle\"></div></div>",
+      "css": ".ds-map { display: inline-block; padding: 16px; background: var(--color-asphalt, #26282c); border-radius: 8px; } .ds-bays { display: grid; grid-template-columns: repeat(4, 2.75rem); grid-template-rows: 3.5rem; } .ds-bay { position: relative; border-left: 2px solid rgb(255 255 255 / .85); border-top: 2px solid rgb(255 255 255 / .85); } .ds-bay.ds-end { border-right: 2px solid rgb(255 255 255 / .85); } .ds-bay.ds-res { border-style: dashed; } .ds-fill { font-family: var(--font-display, 'Chakra Petch', sans-serif); position: absolute; inset: 3px; display: flex; align-items: center; justify-content: center; border-radius: 2px; font-size: 11px; font-weight: 600; line-height: 1; color: #fff; } .ds-busy { background: var(--color-asphalt-3, #4a4e55); color: rgb(255 255 255 / .75); } .ds-mine { background: var(--color-paint, #f2c230); color: var(--color-ink, #1e2024); } .ds-aisle { height: 3.5rem; position: relative; } .ds-aisle::after { content: \"\"; position: absolute; left: 0; right: 0; top: 50%; border-top: 2px dashed rgb(255 255 255 / .25); }"
+    },
+    {
+      "name": "Plate",
+      "kind": "custom",
+      "refersTo": "plate-md",
+      "description": "Thai licence plate: white, ink frame, province on the second line.",
+      "html": "<span class=\"ds-plate\"><span class=\"ds-plate-no\">กข 1234</span><small class=\"ds-plate-prov\">กรุงเทพมหานคร</small></span>",
+      "css": ".ds-plate { font-family: var(--font-display, 'Chakra Petch', sans-serif); display: inline-flex; flex-direction: column; align-items: center; padding: 2px 12px; background: #fff; color: var(--color-ink, #1e2024); border: 2px solid var(--color-ink, #1e2024); border-radius: 4px; font-size: 18px; font-weight: 700; line-height: 1.25; letter-spacing: .025em; } .ds-plate-no { font-variant-numeric: tabular-nums; white-space: nowrap; } .ds-plate-prov { font-size: .38em; font-weight: 500; letter-spacing: normal; }"
+    },
+    {
+      "name": "StatBar",
+      "kind": "card",
+      "refersTo": "stat",
+      "description": "One readout panel split by 1px hairlines, not separate cards.",
+      "html": "<div class=\"ds-statbar\"><div class=\"ds-stat\"><span class=\"ds-stat-l\"><i class=\"ds-tone ds-tone-paint\"></i>ช่องว่างตอนนี้</span><b class=\"ds-stat-v\">18 / 64</b><span class=\"ds-stat-n\">ใช้งาน 72%</span></div><div class=\"ds-stat\"><span class=\"ds-stat-l\"><i class=\"ds-tone ds-tone-ok\"></i>รายรับวันนี้</span><b class=\"ds-stat-v\">4,320 ฿</b><span class=\"ds-stat-n\">36 รายการ</span></div></div>",
+      "css": ".ds-statbar { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1px; overflow: hidden; background: var(--color-line, #e1e2dd); border: 1px solid var(--color-line, #e1e2dd); border-radius: 6px; } .ds-stat { font-family: var(--font-body, 'Anuphan', sans-serif); display: grid; align-content: start; gap: 4px; padding: 16px 20px; background: #fff; } .ds-stat-l { display: flex; align-items: center; gap: 8px; font-size: 14px; color: var(--color-muted, #595d65); } .ds-tone { width: 10px; height: 10px; border-radius: 2px; } .ds-tone-paint { background: var(--color-paint, #f2c230); } .ds-tone-ok { background: var(--color-ok, #1f7a45); } .ds-stat-v { font-family: var(--font-display, 'Chakra Petch', sans-serif); font-size: 30px; font-weight: 700; line-height: 1.25; color: var(--color-ink, #1e2024); font-variant-numeric: tabular-nums; } .ds-stat-n { font-size: 14px; color: var(--color-muted, #595d65); }"
+    },
+    {
+      "name": "Action List Panel",
+      "kind": "card",
+      "refersTo": "panel",
+      "description": "White hairline panel; rows hover to Paint Wash; asphalt icon tile with a yellow glyph.",
+      "html": "<ul class=\"ds-list\"><li><a class=\"ds-row\" href=\"#\"><span class=\"ds-tile\"><svg width=\"24\" height=\"24\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\"><rect x=\"4\" y=\"4\" width=\"16\" height=\"16\" rx=\"2\"/><path d=\"M9 9h6v6H9z\"/></svg></span><span class=\"ds-row-t\"><b>ชำระค่าจอด</b><span>ค้นหาจากทะเบียน จ่ายด้วย ThaiQR</span></span><svg width=\"20\" height=\"20\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M5 12h14M13 6l6 6-6 6\"/></svg></a></li></ul>",
+      "css": ".ds-list { list-style: none; margin: 0; padding: 0; overflow: hidden; background: #fff; border: 1px solid var(--color-line, #e1e2dd); border-radius: 8px; } .ds-row { display: flex; align-items: center; gap: 16px; padding: 16px; color: var(--color-ink, #1e2024); text-decoration: none; transition: background-color .15s; } .ds-row:hover { background: var(--color-paint-soft, #fbefc4); } .ds-row:focus-visible { outline: 3px solid var(--color-paint, #f2c230); outline-offset: 2px; } .ds-tile { display: grid; place-items: center; width: 44px; height: 44px; flex-shrink: 0; border-radius: 6px; background: var(--color-asphalt, #26282c); color: var(--color-paint, #f2c230); } .ds-row-t { font-family: var(--font-body, 'Anuphan', sans-serif); display: grid; flex: 1; } .ds-row-t b { font-family: var(--font-display, 'Chakra Petch', sans-serif); font-size: 18px; } .ds-row-t span { font-size: 14px; color: var(--color-muted, #595d65); } .ds-row > svg { color: var(--color-muted, #595d65); transition: transform .15s; } .ds-row:hover > svg { transform: translateX(4px); color: var(--color-ink, #1e2024); }"
+    }
+  ],
+  "narrative": {
+    "northStar": "Car-Park Floor Paint",
+    "overview": "The interface is painted the way a parking deck is painted. An asphalt-charcoal shell carries a line of yellow road paint. Floors are identified by a level colour, like painted pillars, and shown as a squared, stencilled floor code. The floor map is drawn as white bay lines on asphalt, and the only solid yellow on it is the driver's own slot. Content sits on a pale concrete ground in flat white panels with 1px hairlines. There are no gradients, no glass and no soft drop shadows.\n\nDriver pages are loose and large: the floor code, the free count and the amount owed are set at stencil size inside a dark deck band. Admin pages use the same objects (floor badge, plate, painted map, hairline-split readout) in a denser grid. The exit kiosk turns the whole screen into asphalt-deep, under a yellow exit sign.\n\nThe system rejects the white-card SaaS look, with its blue buttons and green/amber/red progress bars. It replaces the earlier navy and pastel-green look completely; none of those values remain.",
+    "keyCharacteristics": [
+      "An asphalt shell with a 4px yellow paint rule along the edge that meets the content.",
+      "Flat colour throughout. Depth comes from asphalt against concrete against white, never from shadow.",
+      "Floors are carried by level colour and the square floor badge, repeated at every size.",
+      "Yellow is scarce and always means \"your action, your place, your slot\".",
+      "Status is always a word with a fill or line treatment, never colour alone.",
+      "Thai first: comfortable 1.65 body leading, no tracking on Thai text, and tabular figures for money, counts and times."
+    ],
+    "rules": [
+      {
+        "name": "The Reserved Paint Rule",
+        "section": "colors",
+        "body": "Yellow as a fill means one of three things: the primary action, the active item, or the driver's own slot. Apart from those, it appears only as structural paint (the shell rule, the wordmark tile, focus, selection, the kiosk exit sign) or as a mark on asphalt (an arrow, an icon in an asphalt tile, the kiosk's read-out plate). Never use it to decorate a light panel."
+      },
+      {
+        "name": "The Pillar Rule",
+        "section": "colors",
+        "body": "Level colours belong to floors. A level colour on anything that is not a floor (a chart series, a category, a button) breaks the wayfinding."
+      },
+      {
+        "name": "The Word-Plus-Fill Rule",
+        "section": "colors",
+        "body": "Every status is spoken. Map bays have a fill or line state (open lines = ว่าง, grey block = มีรถ, dashed lines = ถูกจอง, yellow = ช่องของคุณ) plus a word in the title and the legend. Floor fullness is always a word (ว่างมาก / ใกล้เต็ม / เต็ม) next to its colour."
+      },
+      {
+        "name": "The Dark-Ground Variant Rule",
+        "section": "colors",
+        "body": "On asphalt, use `ok-lt` and `bad-lt`, never `ok` and `bad`."
+      },
+      {
+        "name": "The Stencil-for-Numbers Rule",
+        "section": "typography",
+        "body": "A floor code, a plate, an amount or a count is always set in Chakra Petch with tabular figures. Body text never is."
+      },
+      {
+        "name": "The Untracked Thai Rule",
+        "section": "typography",
+        "body": "Don't add letter-spacing to Thai text. The only tracking in the system is `tracking-wide` on plate characters and `tracking-tight` on the wordmark."
+      },
+      {
+        "name": "The Painted-Not-Lifted Rule",
+        "section": "elevation",
+        "body": "If something needs to stand out, change its paint (asphalt against white, or yellow against asphalt). Don't lift it with a shadow or blur it with glass."
+      }
+    ],
+    "dos": [
+      "Do take every colour from the `@theme` tokens in `app/globals.css`.",
+      "Do put the 4px Line Yellow rule on the edge of the asphalt shell that meets the content.",
+      "Do show every floor with a FloorBadge in its level colour, at whichever size fits.",
+      "Do pair every status colour with a word: ว่าง / มีรถ / ถูกจอง, ว่างมาก / ใกล้เต็ม / เต็ม.",
+      "Do use `ok-lt` and `bad-lt` on asphalt.",
+      "Do set plates, amounts, counts and times in Chakra Petch with tabular figures.",
+      "Do keep 6px corners on controls, 8px on panels and 3px on bay furniture.",
+      "Do draw every floor map at the same bay scale.",
+      "Do use a diagonal hazard stripe (Asphalt Deep and Line Yellow, 8px bands) where a real car park would paint one, as on the kiosk exit sign."
+    ],
+    "donts": [
+      "Don't use yellow on anything except the primary action, the active item, the driver's own slot and the structural paint.",
+      "Don't use a level colour for anything that is not a floor.",
+      "Don't show status with colour alone.",
+      "Don't add drop shadows, smooth gradients or glass. Depth is tonal.",
+      "Don't return to white SaaS cards with blue buttons and green/amber/red progress bars, or to the old navy and pastel-green palette.",
+      "Don't letter-space Thai text.",
+      "Don't add a second entrance animation; deck-in is the only one."
+    ]
+  }
+}

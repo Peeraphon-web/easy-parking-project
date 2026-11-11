@@ -1,0 +1,43 @@
+[
+  {
+    "id": "easy-mall",
+    "name": "อีซี่ มอลล์ พระราม 9",
+    "address": "ถนนพระราม 9 ห้วยขวาง กรุงเทพฯ",
+    "openHours": "10:00–22:00",
+    "phone": "02-000-1111",
+    "rates": {
+      "freeMinutes": 15,
+      "perHour": 20,
+      "dayMax": 300,
+      "bookingFee": 10
+    },
+    "floors": [
+      "B1",
+      "B2",
+      "1"
+    ],
+    "exits": [
+      "A",
+      "B"
+    ]
+  },
+  {
+    "id": "green-condo",
+    "name": "กรีน คอนโด ลาดพร้าว",
+    "address": "ซอยลาดพร้าว 71 วังทองหลาง กรุงเทพฯ",
+    "openHours": "24 ชั่วโมง",
+    "phone": "02-000-2222",
+    "rates": {
+      "freeMinutes": 30,
+      "perHour": 30,
+      "dayMax": 200,
+      "bookingFee": 10
+    },
+    "floors": [
+      "G"
+    ],
+    "exits": [
+      "A"
+    ]
+  }
+]

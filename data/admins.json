@@ -1,0 +1,52 @@
+[
+  {
+    "username": "admin",
+    "password": "1234",
+    "name": "ผู้ดูแลส่วนกลาง",
+    "role": "super",
+    "lotIds": [
+      "easy-mall",
+      "green-condo"
+    ],
+    "menus": [
+      "dashboard",
+      "door",
+      "slots",
+      "finance",
+      "activity",
+      "lots",
+      "layout-editor",
+      "roles"
+    ]
+  },
+  {
+    "username": "mall",
+    "password": "1234",
+    "name": "เจ้าหน้าที่อีซี่ มอลล์",
+    "role": "lot",
+    "lotIds": [
+      "easy-mall"
+    ],
+    "menus": [
+      "dashboard",
+      "door",
+      "slots",
+      "finance",
+      "activity"
+    ]
+  },
+  {
+    "username": "condo",
+    "password": "1234",
+    "name": "นิติบุคคลกรีน คอนโด",
+    "role": "lot",
+    "lotIds": [
+      "green-condo"
+    ],
+    "menus": [
+      "dashboard",
+      "door",
+      "slots"
+    ]
+  }
+]

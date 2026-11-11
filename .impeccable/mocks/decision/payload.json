@@ -1,0 +1,108 @@
+{
+  "title": "Easy Parking: choose the visual world",
+  "question": "The re-roll landed on the mall directory board. Keep it, take an alternate, or re-roll.",
+  "options": [
+    {
+      "id": "assigned",
+      "kind": "assigned",
+      "label": "Mall Directory Board",
+      "kicker": "THE ROLL",
+      "lineage": "The backlit floor directory beside Bangkok mall escalators",
+      "thesis": "Every lot reads like the directory you already trust: a stack of floor bands with a red dot marking where you are.",
+      "palette": ["#16202B", "#F3F5F4", "#5B45D6", "#2264C4", "#16815A", "#D7301F"],
+      "materials": ["backlit slate panel", "colour bands per floor", "wayfinding sans (Bai Jamjuree + Anuphan)"],
+      "viewport": "Dark slate top bar; left column is the floor stack (B2, B1, 1), each band showing free count and fill; right is the selected floor's map with the red dot on your slot.",
+      "risk": "Floor colours compete with availability states if fill and the words ว่าง/เต็ม don't carry the status.",
+      "raised": [
+        {"from": "challenger-feed", "raise": "On a phone the current lot's free count owns the first screen; everything else is one scroll down."},
+        {"from": "challenger-folio", "raise": "Every floor map is drawn at the same scale, so floors compare at a glance."},
+        {"from": "challenger-zoo", "raise": "Flat unmodulated colour only: no gradients, glass or drop shadows anywhere."},
+        {"from": "challenger-orienteering", "raise": "The red dot is reserved for the driver's own car or booked slot; nothing else is that red."},
+        {"from": "challenger-emigre", "raise": "The floor badge is one object repeated at every size: nav, card, map and kiosk."}
+      ],
+      "html": ".impeccable/mocks/decision/assigned.html"
+    },
+    {
+      "id": "model-pick",
+      "kind": "pick",
+      "label": "Car-Park Floor Paint",
+      "kicker": "IMPECCABLE’S PICK",
+      "lineage": "Painted bay lines, stencilled numbers and pillar level colours",
+      "thesis": "The interface is painted like the deck itself: line-yellow on asphalt, stencilled bay numbers, a pillar colour for each level.",
+      "palette": ["#26282C", "#F1F1EE", "#F2C230", "#FFFFFF", "#3A86C8"],
+      "materials": ["asphalt charcoal", "line paint", "stencil numerals"],
+      "viewport": "Charcoal shell, a big stencilled floor number with the free count beside it, the bay map as painted lines below.",
+      "risk": "Yellow-on-asphalt is where most parking UIs land, so it's familiar more than distinct.",
+      "html": ".impeccable/mocks/decision/model-pick.html"
+    },
+    {
+      "id": "challenger-flap",
+      "kind": "challenger",
+      "catalogId": "signals-instruments-split-flap-concourse",
+      "label": "Split-Flap Concourse",
+      "verdict": "competitive",
+      "lineage": "Rail station departure boards",
+      "thesis": "Availability as a departure board: one ruled row per floor, counts flipping character by character.",
+      "palette": ["#111214", "#F4F4F0", "#F2A900", "#C8423B", "#8A8D93"],
+      "materials": ["matte black flaps", "white condensed caps", "amber row lamps"],
+      "viewport": "Black board top half: rows for B2/B1/1 with free count, rate and status; light work area below for plate search and the map.",
+      "case": "Fuses cleanly: car parks already post LED counts at the gate, so clarity holds. It loses on audience fit because it reads as a train station.",
+      "risk": "Becomes a costume if the flaps go past the counts into the controls.",
+      "html": ".impeccable/mocks/decision/challenger-flap.html"
+    },
+    {
+      "id": "challenger-feed", "kind": "challenger", "catalogId": "pop-culture-shelf-vertical-video-feed-surface",
+      "label": "Vertical Feed", "verdict": "declined", "lineage": "Full-screen video feeds",
+      "thesis": "One lot owns the screen; swipe for the next.", "palette": ["#000000", "#FFFFFF"],
+      "materials": ["full-bleed media", "glyph rail"], "viewport": "One lot per screen.",
+      "case": "Fuses poorly: no imagery to fill the frame, and admins can't work in a feed.", "risk": "Hides the task.",
+      "kept": "The current lot's free count owns the phone's first screen."
+    },
+    {
+      "id": "challenger-folio", "kind": "challenger", "catalogId": "editorial-sequence-montage-botanical-folio-season",
+      "label": "Botanical Folio", "verdict": "declined", "lineage": "Seasonal botanical plates",
+      "thesis": "One subject at fixed scale through its stages.", "palette": ["#F3EAD6", "#5E7A3A", "#9B2A1F"],
+      "materials": ["engraved plates", "sepia hairlines"], "viewport": "Floors as plates.",
+      "case": "Fuses poorly: drivers don't identify with it and it reads as editorial.", "risk": "Cream-and-serif default.",
+      "kept": "Every floor map at the same scale."
+    },
+    {
+      "id": "challenger-zoo", "kind": "challenger", "catalogId": "aww2-zoo-gardens-guide-map",
+      "label": "Zoo Guide Map", "verdict": "declined", "lineage": "Flat-colour park guide maps",
+      "thesis": "Zones as swelling flat-colour lobes.", "palette": ["#8ED462", "#F5F1E4", "#2C2E2A", "#2BA0FF"],
+      "materials": ["flat colour", "capsule controls"], "viewport": "Lots as lobes.",
+      "case": "Fuses poorly: parking floors are rectangles, and lobes blur the bays.", "risk": "Playful where drivers want speed.",
+      "kept": "Flat unmodulated colour; no gradients or shadows."
+    },
+    {
+      "id": "challenger-orienteering", "kind": "challenger", "catalogId": "notation-diagram-systems-orienteering-map",
+      "label": "Orienteering Map", "verdict": "declined", "lineage": "ISOM orienteering maps",
+      "thesis": "Terrain in standard inks, the course in purple.", "palette": ["#FFFFFF", "#F7D84A", "#8A5A2B", "#B2228F"],
+      "materials": ["contour texture", "control circles"], "viewport": "Floor map as terrain.",
+      "case": "Fuses poorly: a niche sport's notation that drivers would have to learn.", "risk": "Illegible to most visitors.",
+      "kept": "One colour reserved for the driver's own route and slot."
+    },
+    {
+      "id": "challenger-emigre", "kind": "challenger", "catalogId": "emigre-bitmap-specimen",
+      "label": "Bitmap Specimen", "verdict": "declined", "lineage": "Emigre bitmap type specimens",
+      "thesis": "Coarse pixel letterforms at poster scale.", "palette": ["#F6F5F0", "#111111", "#FF3B6B"],
+      "materials": ["bitmap type", "halftone"], "viewport": "Counts in pixel type.",
+      "case": "Fuses poorly: the Thai script has no good bitmap display faces, and it reads as retro.", "risk": "Hurts Thai legibility.",
+      "kept": "The floor badge is one object repeated at every size."
+    }
+  ],
+  "reroll": {"registers": ["safer", "bolder"]},
+  "buildPath": {"value": "code", "toggle": false},
+  "canon": true,
+  "canonCard": {
+    "kind": "canon",
+    "label": "The category standard",
+    "thesis": "A clean parking app, as the category ships it, at full craft.",
+    "palette": ["#FFFFFF", "#0F172A", "#2563EB", "#16A34A", "#DC2626"],
+    "materials": ["white cards", "blue primary", "traffic-light availability"],
+    "viewport": "White top bar, search, three floor cards with green/amber/red bars, map below.",
+    "risk": "Indistinguishable from every parking app by design.",
+    "html": ".impeccable/mocks/decision/canon.html"
+  },
+  "steer": true
+}

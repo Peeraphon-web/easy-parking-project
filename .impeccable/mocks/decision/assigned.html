@@ -1,0 +1,74 @@
+<!doctype html><html lang="th"><head><meta charset="utf-8">
+<link href="https://fonts.googleapis.com/css2?family=Bai+Jamjuree:wght@500;600;700&family=Anuphan:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{--panel:#16202B;--panel2:#1F2B38;--ground:#F3F5F4;--ink:#16202B;--muted:#5B6773;--line:#D7DDDA;--f2:#5B45D6;--f1:#2264C4;--g:#16815A;--dot:#D7301F}
+*{box-sizing:border-box;margin:0}
+body{width:1440px;height:900px;overflow:hidden;background:var(--ground);font-family:Anuphan,sans-serif;color:var(--ink);font-size:16px;line-height:1.6}
+.d{font-family:"Bai Jamjuree",sans-serif}
+header{height:64px;background:var(--panel);color:#fff;display:flex;align-items:center;gap:32px;padding:0 40px}
+header .logo{font-size:22px;font-weight:700;letter-spacing:-.01em}
+header .lot{color:#AEB8C2;font-size:15px}
+header nav{margin-left:auto;display:flex;gap:4px}
+header nav a{padding:8px 14px;border-radius:8px;color:#C9D1D8;font-size:15px;text-decoration:none}
+header nav a.on{background:#fff;color:var(--ink);font-weight:600}
+main{display:grid;grid-template-columns:440px 1fr;gap:32px;padding:32px 40px}
+.title h1{font-size:34px;line-height:1.25}
+.title p{color:var(--muted);font-size:15px}
+form{display:flex;gap:8px;margin:20px 0 24px}
+input{flex:1;height:52px;border:1.5px solid var(--line);border-radius:10px;padding:0 16px;font:inherit;background:#fff}
+button{height:52px;padding:0 20px;border:0;border-radius:10px;background:var(--panel);color:#fff;font:600 16px "Bai Jamjuree"}
+.stack{background:var(--panel);border-radius:16px;padding:10px;display:grid;gap:8px}
+.stack .cap{display:flex;justify-content:space-between;color:#AEB8C2;font-size:13px;padding:6px 10px 2px}
+.band{display:grid;grid-template-columns:64px 1fr auto;align-items:center;gap:16px;background:var(--panel2);border-radius:10px;padding:12px 16px 12px 12px;color:#fff;position:relative}
+.band.sel{outline:2px solid #fff}
+.badge{width:52px;height:52px;border-radius:10px;display:grid;place-items:center;font:700 22px "Bai Jamjuree";color:#fff}
+.band .w{font-size:14px;color:#C9D1D8}
+.band .bar{height:6px;border-radius:3px;background:#34414F;margin-top:6px;overflow:hidden}
+.band .bar i{display:block;height:100%;background:#fff}
+.band .n{font:700 34px/1 "Bai Jamjuree";text-align:right;font-variant-numeric:tabular-nums}
+.band .n small{display:block;font:500 13px Anuphan;color:#C9D1D8;margin-top:4px}
+.band.full .w{color:#FFB4A8}
+.here{position:absolute;right:-6px;top:-6px;width:14px;height:14px;border-radius:50%;background:var(--dot);box-shadow:0 0 0 3px var(--panel)}
+.map{background:#fff;border:1px solid var(--line);border-radius:16px;padding:24px}
+.mh{display:flex;align-items:center;gap:14px;margin-bottom:18px}
+.mh h2{font-size:22px}
+.leg{margin-left:auto;display:flex;gap:16px;font-size:14px;color:var(--muted)}
+.leg i{display:inline-block;width:12px;height:12px;border-radius:3px;margin-right:6px;vertical-align:-1px}
+.grid{display:grid;grid-template-columns:repeat(12,1fr);gap:6px}
+.c{height:52px;border-radius:6px;background:#E7F5EE;border:1.5px solid #B7E2CC;font:600 12px "Bai Jamjuree";color:#2E6E54;display:grid;place-items:center}
+.c.t{background:#E4E8EC;border-color:#E4E8EC;color:#4F5A66}
+.c.r{background:#fff;border:1.5px dashed var(--f1);color:var(--f1)}
+.c.l{background:none;border:0}
+.c.me{background:var(--dot);border-color:var(--dot);color:#fff}
+.rates{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:20px}
+.rates div{border-top:1px solid var(--line);padding-top:12px}
+.rates b{display:block;font:700 26px "Bai Jamjuree";font-variant-numeric:tabular-nums}
+.rates span{color:var(--muted);font-size:14px}
+</style></head><body>
+<header><span class="logo d">Easy Parking</span><span class="lot">อีซี่ มอลล์ พระราม 9 · เปิด 10:00–22:00</span>
+<nav><a class="on">ช่องว่าง</a><a>ชำระค่าจอด</a><a>จองล่วงหน้า</a><a>ประวัติ</a><a>ผู้ดูแลระบบ</a></nav></header>
+<main>
+<section>
+<div class="title"><h1 class="d">ว่าง 30 ช่อง จาก 100</h1><p>อัปเดต 14:32 · ชั่วโมงละ 20 บาท · 15 นาทีแรกฟรี</p></div>
+<form><input placeholder="กรอกทะเบียน เช่น กข 1234"><button>ค้นหา / ชำระเงิน</button></form>
+<div class="stack">
+<div class="cap"><span>ชั้น</span><span>ว่าง / ทั้งหมด</span></div>
+<div class="band"><span class="badge" style="background:var(--g)">1</span><div><b class="d">ชั้น 1 · ใกล้ทางเข้าห้าง</b><div class="w">ว่างมาก</div><div class="bar"><i style="width:46%"></i></div></div><span class="n">11<small>/ 24</small></span></div>
+<div class="band sel"><span class="here"></span><span class="badge" style="background:var(--f1)">B1</span><div><b class="d">ชั้น B1 · คุณจองไว้ที่นี่</b><div class="w">ว่างพอสมควร</div><div class="bar"><i style="width:40%"></i></div></div><span class="n">16<small>/ 40</small></span></div>
+<div class="band full"><span class="badge" style="background:var(--f2)">B2</span><div><b class="d">ชั้น B2</b><div class="w">เกือบเต็ม</div><div class="bar"><i style="width:8%"></i></div></div><span class="n">3<small>/ 36</small></span></div>
+</div>
+</section>
+<section class="map">
+<div class="mh"><span class="badge" style="background:var(--f1);width:40px;height:40px;font-size:17px">B1</span><h2 class="d">ผังชั้น B1</h2>
+<div class="leg"><span><i style="background:#E7F5EE;border:1.5px solid #B7E2CC"></i>ว่าง</span><span><i style="background:#E4E8EC"></i>มีรถ</span><span><i style="border:1.5px dashed var(--f1)"></i>จองแล้ว</span><span><i style="background:var(--dot)"></i>ช่องของคุณ</span></div></div>
+<div class="grid">
+<div class="c t">A01</div><div class="c t">A02</div><div class="c">A03</div><div class="c t">A04</div><div class="c">A05</div><div class="c t">A06</div><div class="c t">A07</div><div class="c">A08</div><div class="c t">A09</div><div class="c r">A10</div><div class="c t">A11</div><div class="c">A12</div>
+<div class="c l"></div><div class="c l"></div><div class="c l"></div><div class="c l"></div><div class="c l"></div><div class="c l"></div><div class="c l"></div><div class="c l"></div><div class="c l"></div><div class="c l"></div><div class="c l"></div><div class="c l"></div>
+<div class="c">B01</div><div class="c t">B02</div><div class="c t">B03</div><div class="c me">B04</div><div class="c t">B05</div><div class="c">B06</div><div class="c t">B07</div><div class="c t">B08</div><div class="c">B09</div><div class="c t">B10</div><div class="c">B11</div><div class="c t">B12</div>
+<div class="c t">C01</div><div class="c">C02</div><div class="c t">C03</div><div class="c t">C04</div><div class="c r">C05</div><div class="c t">C06</div><div class="c">C07</div><div class="c t">C08</div><div class="c t">C09</div><div class="c">C10</div><div class="c t">C11</div><div class="c">C12</div>
+<div class="c l"></div><div class="c l"></div><div class="c l"></div><div class="c l"></div><div class="c l"></div><div class="c l"></div><div class="c l"></div><div class="c l"></div><div class="c l"></div><div class="c l"></div><div class="c l"></div><div class="c l"></div>
+<div class="c t">D01</div><div class="c">D02</div><div class="c t">D03</div><div class="c t">D04</div><div class="c">D05</div><div class="c t">D06</div><div class="c t">D07</div><div class="c">D08</div><div class="c t">D09</div><div class="c t">D10</div><div class="c">D11</div><div class="c t">D12</div>
+</div>
+<div class="rates"><div><b>ฟรี</b><span>15 นาทีแรก</span></div><div><b>20 บาท</b><span>ต่อชั่วโมง (เศษคิดเป็น 1 ชม.)</span></div><div><b>300 บาท</b><span>เหมาสูงสุดต่อวัน</span></div></div>
+</section>
+</main></body></html>

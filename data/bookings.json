@@ -1,0 +1,29 @@
+[
+  {
+    "id": "BK-1042",
+    "lotId": "easy-mall",
+    "plate": "กข 1234",
+    "slot": "B1-A05",
+    "date": "2026-11-10",
+    "time": "10:30",
+    "status": "confirmed"
+  },
+  {
+    "id": "BK-1043",
+    "lotId": "easy-mall",
+    "plate": "7กพ 5521",
+    "slot": "1-C04",
+    "date": "2026-11-12",
+    "time": "18:30",
+    "status": "confirmed"
+  },
+  {
+    "id": "BK-2001",
+    "lotId": "green-condo",
+    "plate": "บต 889",
+    "slot": "G-C02",
+    "date": "2026-11-09",
+    "time": "20:00",
+    "status": "confirmed"
+  }
+]
