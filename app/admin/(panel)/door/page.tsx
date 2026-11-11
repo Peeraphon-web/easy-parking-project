@@ -1,5 +1,5 @@
 "use client";
-// หน้า /admin/door: Door Parking — กล้องทางออก (จำลอง) ทะเบียนที่อ่านได้ เวลาเข้า-ออก ค่าจอด
+// หน้า /admin/door: Door Parking — แผงควบคุมประตูทางออก ทะเบียนที่อ่านได้ เวลาเข้า-ออก ค่าจอด
 import { useState } from "react";
 import PageHeader from "@/components/PageHeader";
 import Plate from "@/components/Plate";
@@ -15,12 +15,35 @@ export default function DoorPage() {
   const now = useNow(5000);
   const [index, setIndex] = useState(0);
   const [exit, setExit] = useState(0);
+  const [open, setOpen] = useState(false);
+  const [fix, setFix] = useState("");
+  const [log, setLog] = useState<string[]>([]);
   const [arrival, setArrival] = useState<{ ok: boolean; text: string } | null>(null);
   if (!lot || !now) return <p className="text-muted">กำลังโหลด…</p>;
 
   const cars = allCars.filter((c) => c.lotId === lot.id);
   const car = cars.length ? cars[index % cars.length] : null;
   const minutes = car ? minutesBetween(car.timeIn, now) : 0;
+  const gate = lot.exits[exit % lot.exits.length];
+  const fee = car ? calcFee(minutes, lot.rates) + bookingFeeFor(lot, car.plate, bookings) : 0;
+  const stamp = () => now.toLocaleTimeString("th-TH", { hour: "2-digit", minute: "2-digit" });
+
+  // เจ้าหน้าที่ปล่อยรถเอง: เปิดไม้กั้นและบันทึกเหตุผลไว้ตรวจสอบภายหลัง
+  function release(reason: string) {
+    if (!car) return;
+    setOpen(true);
+    setLog((l) => [`${stamp()} เปิดไม้กั้นให้ ${car.plate} · ${reason} · ${formatBaht(fee)}`, ...l]);
+    setTimeout(() => setOpen(false), 4000);
+  }
+  // แก้ทะเบียนที่กล้องอ่านผิด: ค้นรถในลานจากทะเบียนที่พิมพ์
+  function fixPlate() {
+    const q = fix.replace(/\s/g, "");
+    const i = cars.findIndex((c) => c.plate.replace(/\s/g, "") === q);
+    if (i < 0) { setLog((l) => [`${stamp()} ไม่พบทะเบียน ${fix} ในลาน`, ...l]); return; }
+    setIndex(i); setFix("");
+    setLog((l) => [`${stamp()} แก้ทะเบียนเป็น ${cars[i].plate}`, ...l]);
+  }
+
   const lotBookings = bookings
     .filter((b) => b.lotId === lot.id && ["confirmed", "checked_in"].includes(resolveStatus(b, now)))
     .sort((a, b) => bookingStart(a).getTime() - bookingStart(b).getTime());
@@ -44,24 +67,47 @@ export default function DoorPage() {
 
   return (
     <>
-      <PageHeader title="Door Parking" subtitle={`${lot.name} · ทางออก ${lot.exits[exit % lot.exits.length]}`}>
+      <PageHeader title="Door Parking" subtitle={`${lot.name} · ทางออก ${gate}`}>
         {lot.exits.length > 1 && <button type="button" onClick={() => setExit(exit + 1)} className="rounded-md border border-line bg-white px-3 py-2 text-sm">สลับประตู</button>}
         <button type="button" onClick={() => setIndex(index + 1)} className="rounded-md bg-paint hover:bg-paint-hi px-4 py-2 text-sm font-semibold text-ink">จำลองรถคันถัดไป</button>
       </PageHeader>
 
       {car ? (
         <div className="grid gap-4 lg:grid-cols-[1.4fr_1fr]">
-          <div className="relative aspect-video max-w-full overflow-hidden rounded-lg bg-asphalt-deep">
-            <div className="absolute inset-0 grid place-items-center">
-              <div className="grid justify-items-center gap-3">
-                <div className="grid h-28 w-44 place-items-center rounded-lg text-sm text-white" style={{ background: car.color }}>{car.type}</div>
-                <div className="rounded-md ring-4 ring-paint"><Plate plate={car.plate} size="lg" /></div>
+          {/* แผงควบคุมประตู: สิ่งที่เจ้าหน้าที่ต้องตัดสินใจที่ทางออก */}
+          <div className="grid content-start gap-4 rounded-lg bg-asphalt p-5 text-white">
+            <div className="flex items-center justify-between gap-3">
+              <h2 className="font-display text-xl font-bold">ประตูทางออก {gate}</h2>
+              <span className={`rounded-full px-3 py-1 text-sm font-semibold ${open ? "bg-ok text-white" : "bg-white/15"}`}>ไม้กั้น{open ? "เปิดอยู่" : "ปิดอยู่"}</span>
+            </div>
+            <div className="rounded-md bg-white/10 p-4">
+              <p className="text-sm text-white/70">สถานะรถคันนี้</p>
+              <p className="font-display text-2xl font-bold">ยังไม่ชำระ · {formatBaht(fee)}</p>
+              <p className="text-sm text-white/70">ลูกค้าจ่าย QR ที่ตู้ได้ หรือเจ้าหน้าที่ปล่อยรถด้วยเหตุผลด้านล่าง</p>
+            </div>
+            <div className="grid gap-2">
+              <p className="text-sm font-semibold">เปิดไม้กั้นด้วยตนเอง</p>
+              <div className="flex flex-wrap gap-2">
+                {["รับเงินสดแล้ว", "รถพนักงาน / VIP", "ระบบชำระเงินขัดข้อง"].map((r) => (
+                  <button key={r} type="button" onClick={() => release(r)} className="rounded-md bg-paint px-3 py-2 text-sm font-semibold text-ink hover:bg-paint-hi">{r}</button>
+                ))}
               </div>
             </div>
-            <span className="absolute left-3 top-2 flex items-center gap-1.5 font-mono text-xs text-white">
-              <i className="h-2 w-2 rounded-full bg-[#f05555]" style={{ animation: "blink 1.2s infinite" }} />CAM-EXIT (จำลอง)
-            </span>
-            <span className="num absolute right-3 top-2 font-mono text-xs text-white/70">{now.toLocaleTimeString("th-TH")}</span>
+            <form className="grid gap-2" onSubmit={(e) => { e.preventDefault(); fixPlate(); }}>
+              <label htmlFor="fix" className="text-sm font-semibold">กล้องอ่านทะเบียนผิด? พิมพ์ทะเบียนที่ถูก</label>
+              <div className="flex gap-2">
+                <input id="fix" value={fix} onChange={(e) => setFix(e.target.value)} placeholder="เช่น กข1234" className="min-w-0 flex-1 rounded-md bg-white px-3 py-2 text-ink" />
+                <button className="rounded-md border border-white/30 px-3 py-2 text-sm font-semibold hover:bg-white/10">ค้นหา</button>
+              </div>
+            </form>
+            <div className="grid gap-1 border-t border-white/15 pt-3">
+              <p className="text-sm font-semibold">เหตุการณ์ล่าสุดที่ประตูนี้</p>
+              {log.length === 0 ? <p className="text-sm text-white/60">ยังไม่มี</p> : (
+                <ul className="num grid gap-1 text-sm text-white/85">
+                  {log.slice(0, 5).map((l, i) => <li key={i}>{l}</li>)}
+                </ul>
+              )}
+            </div>
           </div>
           <div className="grid content-start gap-4 rounded-lg bg-white shadow-card p-5">
             <div>
@@ -75,7 +121,7 @@ export default function DoorPage() {
             </dl>
             <div>
               <p className="text-xs text-muted">ค่าจอด{bookingFeeFor(lot, car.plate, bookings) ? ` (รวมค่าบริการจอง ${lot.rates.bookingFee ?? 0} บาท)` : ""}</p>
-              <p className="num font-display text-4xl font-bold text-ink">{formatBaht(calcFee(minutes, lot.rates) + bookingFeeFor(lot, car.plate, bookings))}</p>
+              <p className="num font-display text-4xl font-bold text-ink">{formatBaht(fee)}</p>
             </div>
           </div>
         </div>
