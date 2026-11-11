@@ -4,7 +4,9 @@ import Link from "next/link";
 import { useState } from "react";
 import FloorBadge from "@/components/FloorBadge";
 import PageHeader from "@/components/PageHeader";
+import ParkingPhoto from "@/components/ParkingPhoto";
 import { useLots } from "@/context/LotContext";
+import { MAX_UPLOAD_MB, fitsInStorage, resizeImage, sizeKB } from "@/lib/image";
 import type { Lot } from "@/types";
 
 const EMPTY: Lot = { id: "", name: "", address: "", openHours: "24 ชั่วโมง", phone: "", rates: { freeMinutes: 15, perHour: 20, dayMax: 300, bookingFee: 10 }, floors: ["1"], exits: ["A"] };
@@ -15,6 +17,24 @@ export default function LotsPage() {
   const [editing, setEditing] = useState<string | null>(null);
   const [error, setError] = useState("");
   const [confirmDelete, setConfirmDelete] = useState<string | null>(null);
+  const [imgError, setImgError] = useState("");
+  const [imgBusy, setImgBusy] = useState(false);
+  const [dragging, setDragging] = useState(false);
+
+  // รับรูปจากปุ่มเลือกไฟล์หรือการลากวาง → ย่อ → เช็กพื้นที่ → ใส่ในฟอร์ม
+  async function pickImage(file: File | undefined) {
+    if (!file) return;
+    setImgError(""); setImgBusy(true);
+    try {
+      const dataUrl = await resizeImage(file);
+      if (!fitsInStorage(dataUrl)) throw new Error("พื้นที่เก็บข้อมูลในเบราว์เซอร์เต็ม ลบรูปของสถานที่อื่นก่อน หรือกด “คืนค่า Mock data เดิม”");
+      setForm((f) => ({ ...f, image: dataUrl }));
+    } catch (err) {
+      setImgError(err instanceof Error ? err.message : "อ่านรูปนี้ไม่ได้ ลองไฟล์อื่น");
+    } finally {
+      setImgBusy(false);
+    }
+  }
 
   function submit(e: React.FormEvent) {
     e.preventDefault();
@@ -29,7 +49,7 @@ export default function LotsPage() {
       // สร้างผังว่างให้ทุกชั้น ไปวาดต่อที่หน้า "ออกแบบผัง"
       setLayouts((prev) => [...prev, ...lot.floors.map((f) => ({ lotId: id, floor: f, cols: 10, rows: 6, cells: [] }))]);
     }
-    setForm(EMPTY); setEditing(null); setError("");
+    setForm(EMPTY); setEditing(null); setError(""); setImgError("");
   }
 
   const field = "h-11 rounded-md border border-ink/35 px-3 text-base disabled:bg-surface disabled:text-muted";
@@ -42,7 +62,10 @@ export default function LotsPage() {
       <div className="grid items-start gap-6 xl:grid-cols-[minmax(0,1fr)_26rem]">
       <div className="grid gap-3">
         {lots.map((l) => (
-          <div key={l.id} className="flex flex-wrap items-start gap-2 rounded-lg bg-white shadow-card p-4">
+          <div key={l.id} className="flex flex-wrap items-start gap-3 rounded-lg bg-white shadow-card p-4">
+            <div className="h-20 w-28 shrink-0 overflow-hidden rounded-md">
+              <ParkingPhoto key={l.image ? "upload" : "default"} src={l.image || `/images/lots/${l.id}.jpg`} alt={`รูป ${l.name}`} scene={l.scene} />
+            </div>
             <div className="grid min-w-0 flex-1 gap-2">
               <div><b className="font-display text-lg">{l.name}</b> <span className="text-sm text-muted">/{l.id}</span></div>
               <div className="flex flex-wrap items-center gap-1.5">
@@ -73,6 +96,41 @@ export default function LotsPage() {
 
       <form onSubmit={submit} className="grid gap-3 rounded-lg bg-white shadow-card p-5 xl:sticky xl:top-6">
         <h2 className="text-xl font-bold">{editing ? `แก้ไข ${editing}` : "เพิ่มสถานที่ใหม่"}</h2>
+
+        {/* รูปสถานที่: ลากวาง หรือกดเลือกไฟล์ */}
+        <div className="grid gap-1.5 text-sm">
+          <span>รูปสถานที่ <span className="text-muted">(แสดงที่การ์ดหน้าแรก)</span></span>
+          <label htmlFor="lot-image"
+            onDragOver={(e) => { e.preventDefault(); setDragging(true); }}
+            onDragLeave={() => setDragging(false)}
+            onDrop={(e) => { e.preventDefault(); setDragging(false); pickImage(e.dataTransfer.files[0]); }}
+            className={`relative block aspect-[16/9] cursor-pointer overflow-hidden rounded-lg border-2 border-dashed ${dragging ? "border-ink bg-paint-soft" : "border-ink/25"}`}>
+            {form.image ? (
+              // eslint-disable-next-line @next/next/no-img-element
+              <img src={form.image} alt="ตัวอย่างรูปสถานที่" className="h-full w-full object-cover" />
+            ) : (
+              <span className="grid h-full place-items-center p-4 text-center text-muted">
+                <span>{imgBusy ? "กำลังย่อรูป…" : <>ลากรูปมาวางที่นี่ หรือ <u className="text-ink">เลือกไฟล์</u><br /><small>JPG, PNG, WebP ไม่เกิน {MAX_UPLOAD_MB} MB · ระบบย่อให้อัตโนมัติ</small></>}</span>
+              </span>
+            )}
+          </label>
+          <input id="lot-image" type="file" accept="image/*" className="sr-only"
+            onChange={(e) => { pickImage(e.target.files?.[0]); e.target.value = ""; }} />
+          {form.image && (
+            <div className="flex flex-wrap items-center gap-2">
+              <label htmlFor="lot-image" className="cursor-pointer rounded-md border border-line px-3 py-1.5 font-semibold hover:border-ink">เปลี่ยนรูป</label>
+              <button type="button" onClick={() => setForm({ ...form, image: undefined })} className="rounded-md border border-bad/40 px-3 py-1.5 font-semibold text-bad hover:bg-bad/5">ลบรูป</button>
+              <span className="num text-xs text-muted">{sizeKB(form.image)} KB</span>
+            </div>
+          )}
+          {imgError && <p className="rounded-md bg-bad/10 px-3 py-2 text-bad">{imgError}</p>}
+          <label className="grid gap-1">ถ้าไม่ใส่รูป ใช้ภาพแทนแบบ
+            <select id="lot-scene" value={form.scene ?? "mall"} onChange={(e) => setForm({ ...form, scene: e.target.value as Lot["scene"] })} className="h-11 rounded-md border border-ink/35 px-3 text-base">
+              <option value="mall">ลานจอดในอาคาร (ห้าง / ออฟฟิศ)</option>
+              <option value="condo">ลานจอดกลางแจ้ง (คอนโด / หมู่บ้าน)</option>
+            </select>
+          </label>
+        </div>
         <div className="grid gap-3 sm:grid-cols-2 xl:grid-cols-2">
           <label className="grid gap-1 text-sm">รหัส (ใช้ใน URL)<input id="lot-id" disabled={!!editing} value={form.id} onChange={(e) => setForm({ ...form, id: e.target.value })} placeholder="เช่น siam-office" className={field} /></label>
           <label className="grid gap-1 text-sm">ชื่อสถานที่<input id="lot-name" value={form.name} onChange={(e) => setForm({ ...form, name: e.target.value })} className={field} /></label>
@@ -90,7 +148,7 @@ export default function LotsPage() {
         {error && <p className="rounded-lg bg-bad/10 px-3 py-2 text-sm text-bad">{error}</p>}
         <div className="flex gap-2">
           <button className="rounded-md bg-paint hover:bg-paint-hi px-5 py-2.5 font-display font-semibold text-ink">{editing ? "บันทึก" : "เพิ่มสถานที่"}</button>
-          {editing && <button type="button" onClick={() => { setForm(EMPTY); setEditing(null); }} className="rounded-md border border-line px-5 py-2.5">ยกเลิก</button>}
+          {editing && <button type="button" onClick={() => { setForm(EMPTY); setEditing(null); setImgError(""); }} className="rounded-md border border-line px-5 py-2.5">ยกเลิก</button>}
         </div>
       </form>
       </div>

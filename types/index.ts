@@ -17,6 +17,7 @@ export type Lot = {
   floors: string[];    // ชื่อชั้น เรียงตามลำดับ
   exits: string[];     // ประตูทางออก ใช้กับตู้ Kiosk
   scene?: "mall" | "condo"; // ใช้เลือกภาพประกอบ: ลานในห้าง หรือ ลานคอนโดกลางแจ้ง
+  image?: string;           // รูปที่ผู้ดูแลอัปโหลด (data URL ย่อแล้ว) ถ้าไม่มีจะใช้ภาพวาดตาม scene
 };
 
 export type CellType = "slot" | "road" | "wall" | "entry" | "exit" | "lift" | "empty";

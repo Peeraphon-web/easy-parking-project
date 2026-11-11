@@ -19,7 +19,6 @@ export default function SelectLotPage() {
     const floors = countByFloor(lot, layouts, status);
     return { lot, floors, free: floors.reduce((a, f) => a + f.free, 0), total: floors.reduce((a, f) => a + f.total, 0) };
   });
-  const freeAll = summary.reduce((a, s) => a + s.free, 0);
 
   return (
     <div className="grid gap-12">
@@ -48,15 +47,15 @@ export default function SelectLotPage() {
         <div className="relative h-[300px] sm:h-[420px]">
           {/* ภาพประกอบลานจอด (public/images/hero.png พื้นโปร่งใส) วางบนพื้นสีอ่อน */}
           <div className="absolute inset-0 overflow-hidden rounded-[2rem] bg-white"
-            style={{ backgroundImage: "radial-gradient(ellipse at 60% 55%, var(--color-paint-soft), transparent 65%)" }}>
+            style={{ backgroundImage: "radial-gradient(ellipse at 60% 55%, #fbefc4, transparent 65%)" }}>
             <div className="absolute inset-x-[6%] inset-y-[4%] sm:left-[18%]">
               <ParkingPhoto src="/images/hero.png" alt="ภาพประกอบลานจอดรถมีต้นไม้และรถจอดอยู่" fit="contain" scene="mall" />
             </div>
           </div>
           <div className="absolute left-0 top-0 rounded-br-[2rem] bg-surface pb-3 pr-3">
             <div className="grid gap-0.5 rounded-[1.25rem] bg-white px-5 py-3 shadow-card">
-              <span className="text-xs text-muted">ว่างตอนนี้ทุกสถานที่</span>
-              <span className="num font-display text-3xl font-bold leading-none">{now ? freeAll : "–"}<span className="text-base font-medium text-muted"> ช่อง</span></span>
+              <span className="text-xs text-muted">ไม่ต้องสมัครสมาชิก</span>
+              <span className="font-display text-2xl font-bold leading-tight">สแกน · จ่าย · ออก</span>
             </div>
             {/* มุมโค้งกลับด้าน 2 จุด (ขวาและล่างของรอยบาก) ให้รอยบากต่อกับภาพแบบเนียน */}
             <span aria-hidden="true" className="absolute left-full top-0 h-8 w-8" style={{ background: "radial-gradient(circle at 100% 100%, transparent 2rem, var(--color-surface) 2rem)" }} />
@@ -77,7 +76,7 @@ export default function SelectLotPage() {
               <Link href={`/${lot.id}`}
                 className="group grid h-full gap-3 rounded-[1.75rem] bg-white p-3 shadow-card transition hover:bg-paint focus-visible:outline-3 focus-visible:outline-ink">
                 <div className="relative h-52 overflow-hidden rounded-[1.25rem]">
-                  <ParkingPhoto src={`/images/lots/${lot.id}.jpg`} alt={`ลานจอด ${lot.name}`} scene={lot.scene} variant={i} className="transition duration-500 group-hover:scale-105" />
+                  <ParkingPhoto key={lot.image ? "upload" : "default"} src={lot.image || `/images/lots/${lot.id}.jpg`} alt={`ลานจอด ${lot.name}`} scene={lot.scene} variant={i} className="transition duration-500 group-hover:scale-105" />
                   <span className="num absolute left-3 top-3 rounded-full bg-white/95 px-3 py-1 text-sm font-semibold">
                     ว่าง {now ? free : "–"} / {total}
                   </span>
