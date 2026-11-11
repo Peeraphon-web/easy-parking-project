@@ -43,6 +43,10 @@ export type SlotStatus = "free" | "busy" | "reserved";
 export type CarType = "Sedan" | "SUV" | "Pickup" | "Hatchback" | "Van";
 
 // ข้อมูลรถใน cars.json (ใช้ minutesAgo เพื่อให้เวลาเข้าเป็น "วันนี้" ทุกครั้งที่เปิด)
+// ที่มาของตำแหน่งรถ (ระบบจริงต้องมีอุปกรณ์บอก เพราะกล้องทางเข้าไม่รู้ว่ารถไปจอดช่องไหน)
+// slot-camera = กล้องอ่านป้ายเหนือช่องจอด · booking = ช่องที่จองไว้ · qr = ผู้ขับสแกน QR ที่เสาบันทึกเอง
+export type LocatedBy = "slot-camera" | "booking" | "qr";
+
 export type CarRecord = {
   plate: string;
   province: string;
@@ -51,6 +55,7 @@ export type CarRecord = {
   lotId: string;
   slot: string;
   minutesAgo: number;
+  locatedBy?: LocatedBy; // ระบบรู้ตำแหน่งรถจากอะไร (ไม่ใส่ = กล้องที่ช่องจอด)
 };
 
 // รถที่แปลงเวลาแล้ว พร้อมใช้ในหน้าเว็บ
