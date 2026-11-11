@@ -8,7 +8,7 @@ export type Rates = {
 };
 
 export type Lot = {
-  id: string;          // ใช้ใน URL เช่น /easy-mall
+  id: string;          // ใช้ใน URL เช่น /central-world
   name: string;
   address: string;
   openHours: string;
@@ -16,6 +16,7 @@ export type Lot = {
   rates: Rates;
   floors: string[];    // ชื่อชั้น เรียงตามลำดับ
   exits: string[];     // ประตูทางออก ใช้กับตู้ Kiosk
+  scene?: "mall" | "condo"; // ใช้เลือกภาพประกอบ: ลานในห้าง หรือ ลานคอนโดกลางแจ้ง
 };
 
 export type CellType = "slot" | "road" | "wall" | "entry" | "exit" | "lift" | "empty";

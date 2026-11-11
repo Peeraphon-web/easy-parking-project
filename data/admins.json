@@ -5,8 +5,8 @@
     "name": "ผู้ดูแลส่วนกลาง",
     "role": "super",
     "lotIds": [
-      "easy-mall",
-      "green-condo"
+      "central-world",
+      "plum-condo"
     ],
     "menus": [
       "dashboard",
@@ -22,10 +22,10 @@
   {
     "username": "mall",
     "password": "1234",
-    "name": "เจ้าหน้าที่อีซี่ มอลล์",
+    "name": "เจ้าหน้าที่เซ็นทรัลเวิลด์",
     "role": "lot",
     "lotIds": [
-      "easy-mall"
+      "central-world"
     ],
     "menus": [
       "dashboard",
@@ -38,10 +38,10 @@
   {
     "username": "condo",
     "password": "1234",
-    "name": "นิติบุคคลกรีน คอนโด",
+    "name": "นิติบุคคลพลัม คอนโด",
     "role": "lot",
     "lotIds": [
-      "green-condo"
+      "plum-condo"
     ],
     "menus": [
       "dashboard",

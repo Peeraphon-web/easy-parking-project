@@ -36,7 +36,7 @@ export default function LoginPage() {
         <button className="rounded-md bg-paint hover:bg-paint-hi py-3 font-display font-semibold text-ink">เข้าสู่ระบบ</button>
         {/* <div className="rounded-md bg-surface p-3 text-xs text-muted">
           บัญชีทดลอง (รหัสผ่าน 1234 ทุกบัญชี)<br />
-          <b>admin</b> = Super Admin ทุกสถานที่ · <b>mall</b> = อีซี่ มอลล์ · <b>condo</b> = กรีน คอนโด
+          <b>admin</b> = Super Admin ทุกสถานที่ · <b>mall</b> = เซ็นทรัลเวิลด์ · <b>condo</b> = พลัม คอนโด
         </div> */}
       </form>
       </div>

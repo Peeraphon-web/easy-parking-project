@@ -38,7 +38,7 @@ One web system serves many car parks. Each location gets its own route (`/[lot]`
 
 ## Evidence on Hand
 
-- Two sample locations: อีซี่ มอลล์ พระราม 9 and กรีน คอนโด ลาดพร้าว (`data/lots.json`).
+- Two sample locations: เซ็นทรัลเวิลด์ and พลัม คอนโด ลาดพร้าว 101 (`data/lots.json`).
 - There is no logo, photography, testimonials or usage figures. Do not make any up.
 
 ## Product Principles

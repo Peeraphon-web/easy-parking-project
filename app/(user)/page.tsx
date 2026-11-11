@@ -1,8 +1,10 @@
 "use client";
 // Page /: choose a location
+// Hero แบบภาพใหญ่มีมุมบาก + การ์ดสถานที่แบบมีรูป (แรงบันดาลใจจาก landing page ธุรกิจที่จอดรถ)
 import Link from "next/link";
 import FloorBadge from "@/components/FloorBadge";
 import Icon from "@/components/Icon";
+import ParkingPhoto from "@/components/ParkingPhoto";
 import { useLots } from "@/context/LotContext";
 import { getSlotStatus } from "@/lib/booking";
 import { countByFloor } from "@/lib/lots";
@@ -12,77 +14,107 @@ export default function SelectLotPage() {
   const { lots, layouts, bookings } = useLots();
   const now = useNow();
 
+  const summary = lots.map((lot) => {
+    const status = now ? getSlotStatus(lot.id, layouts, bookings, now) : {};
+    const floors = countByFloor(lot, layouts, status);
+    return { lot, floors, free: floors.reduce((a, f) => a + f.free, 0), total: floors.reduce((a, f) => a + f.total, 0) };
+  });
+  const freeAll = summary.reduce((a, s) => a + s.free, 0);
+
   return (
-    <div className="grid gap-10">
-      <section className="-mx-4 -mt-6 grid gap-10 bg-asphalt px-4 py-10 text-white sm:mx-0 sm:mt-0 sm:rounded-lg sm:px-10 sm:py-12 lg:grid-cols-[1.2fr_1fr] lg:items-center">
-        <div className="grid gap-4">
-          <h1 className="text-4xl font-bold leading-[1.2] sm:text-5xl">
-            <span className="block">จอดที่ไหน จ่ายที่นั่น</span>
-            <span className="block">ในเว็บเดียว</span>
+    <div className="grid gap-12">
+      {/* ---------- Hero ---------- */}
+      <section className="grid items-center gap-8 lg:grid-cols-[5fr_7fr]">
+        <div className="grid gap-6">
+          <p className="font-display text-sm font-semibold tracking-[0.2em] text-paint-ink">EASY PARKING</p>
+          <h1 className="font-display text-5xl font-bold leading-[1.05] sm:text-6xl">
+            <span className="block">จอดที่ไหน</span>
+            <span className="block">จ่ายที่นั่น.</span>
           </h1>
-          <p className="max-w-[48ch] text-lg text-white/80">
-            เลือกสถานที่ที่คุณจอดอยู่ เพื่อดูช่องว่าง ชำระค่าจอด หรือจองล่วงหน้า ไม่ต้องสมัครสมาชิก
+          <p className="max-w-[42ch] text-lg text-muted">
+            ดูช่องว่างแต่ละชั้น ชำระค่าจอดด้วย ThaiQR หรือจองล่วงหน้า ในเว็บเดียวทุกสถานที่ ไม่ต้องสมัครสมาชิก
           </p>
+          <div className="flex flex-wrap gap-3">
+            <a href="#lots" className="rounded-full bg-paint px-6 py-3 font-display font-semibold text-ink hover:bg-paint-hi">
+              เลือกสถานที่
+            </a>
+            <Link href="/admin/login" className="rounded-full border border-ink/25 bg-white px-6 py-3 font-display font-semibold hover:border-ink">
+              สำหรับผู้ดูแล
+            </Link>
+          </div>
         </div>
-        <ol className="hidden gap-px overflow-hidden rounded-md bg-white/15 sm:grid">
-          {[
-            { icon: "qr" as const, t: "สแกน QR ที่เสา หรือเลือกสถานที่ด้านล่าง" },
-            { icon: "search" as const, t: "ดูช่องว่างแต่ละชั้น หรือค้นหารถจากทะเบียน" },
-            { icon: "ticket" as const, t: "จ่ายด้วย ThaiQR แล้วขับออกได้ภายใน 15 นาที" },
-          ].map((s, i) => (
-            <li key={s.t} className="flex items-center gap-4 bg-asphalt-2 px-4 py-3.5">
-              <span className="num grid h-8 w-8 shrink-0 place-items-center rounded-[4px] bg-paint font-display font-bold text-ink">{i + 1}</span>
-              <span className="flex-1 text-[15px] text-white/90">{s.t}</span>
-              <Icon name={s.icon} className="h-5 w-5 text-white/60" />
-            </li>
-          ))}
-        </ol>
+
+        {/* ภาพใหญ่ + มุมบากซ้ายบน (ใส่ตัวเลขช่องว่างรวมไว้ในรอยบาก) */}
+        <div className="relative h-[300px] sm:h-[420px]">
+          {/* ภาพประกอบลานจอด (public/images/hero.png พื้นโปร่งใส) วางบนพื้นสีอ่อน */}
+          <div className="absolute inset-0 overflow-hidden rounded-[2rem] bg-white"
+            style={{ backgroundImage: "radial-gradient(ellipse at 60% 55%, var(--color-paint-soft), transparent 65%)" }}>
+            <div className="absolute inset-x-[6%] inset-y-[4%] sm:left-[18%]">
+              <ParkingPhoto src="/images/hero.png" alt="ภาพประกอบลานจอดรถมีต้นไม้และรถจอดอยู่" fit="contain" scene="mall" />
+            </div>
+          </div>
+          <div className="absolute left-0 top-0 rounded-br-[2rem] bg-surface pb-3 pr-3">
+            <div className="grid gap-0.5 rounded-[1.25rem] bg-white px-5 py-3 shadow-card">
+              <span className="text-xs text-muted">ว่างตอนนี้ทุกสถานที่</span>
+              <span className="num font-display text-3xl font-bold leading-none">{now ? freeAll : "–"}<span className="text-base font-medium text-muted"> ช่อง</span></span>
+            </div>
+            {/* มุมโค้งกลับด้าน 2 จุด (ขวาและล่างของรอยบาก) ให้รอยบากต่อกับภาพแบบเนียน */}
+            <span aria-hidden="true" className="absolute left-full top-0 h-8 w-8" style={{ background: "radial-gradient(circle at 100% 100%, transparent 2rem, var(--color-surface) 2rem)" }} />
+            <span aria-hidden="true" className="absolute left-0 top-full h-8 w-8" style={{ background: "radial-gradient(circle at 100% 100%, transparent 2rem, var(--color-surface) 2rem)" }} />
+          </div>
+        </div>
       </section>
 
-      <section className="grid gap-4" aria-labelledby="lots-title">
-        <h2 id="lots-title" className="text-2xl font-bold">สถานที่ในระบบ <span className="num text-muted">({lots.length})</span></h2>
-        <ul className="grid gap-4 md:grid-cols-2">
-          {lots.map((lot) => {
-            const status = now ? getSlotStatus(lot.id, layouts, bookings, now) : {};
-            const floors = countByFloor(lot, layouts, status);
-            const free = floors.reduce((a, f) => a + f.free, 0);
-            const total = floors.reduce((a, f) => a + f.total, 0);
-            return (
-              <li key={lot.id}>
-                <Link href={`/${lot.id}`}
-                  className="group grid h-full gap-5 rounded-lg bg-white p-6 shadow-card hover:-translate-y-0.5 hover:shadow-lift">
-                  <div className="flex items-start justify-between gap-4">
-                    <div className="min-w-0">
-                      <h3 className="text-xl font-bold">{lot.name}</h3>
-                      <p className="mt-0.5 text-sm text-muted">{lot.address}</p>
-                    </div>
-                    <div className="shrink-0 text-right">
-                      <p className="num font-display text-4xl font-bold leading-none">{now ? free : "–"}</p>
-                      <p className="num mt-1 text-sm text-muted">ว่าง จาก {total} ช่อง</p>
-                    </div>
+      {/* ---------- สถานที่ ---------- */}
+      <section id="lots" className="grid scroll-mt-6 gap-5" aria-labelledby="lots-title">
+        <div className="flex flex-wrap items-end justify-between gap-3">
+          <h2 id="lots-title" className="font-display text-3xl font-bold">สถานที่ในระบบ <span className="num text-muted">({lots.length})</span></h2>
+          <p className="text-sm text-muted">หรือสแกน QR ที่เสาในลานจอดเพื่อเข้าหน้านั้นทันที</p>
+        </div>
+        <ul className="grid gap-5 sm:grid-cols-2 xl:grid-cols-3">
+          {summary.map(({ lot, floors, free, total }, i) => (
+            <li key={lot.id}>
+              <Link href={`/${lot.id}`}
+                className="group grid h-full gap-3 rounded-[1.75rem] bg-white p-3 shadow-card transition hover:bg-paint focus-visible:outline-3 focus-visible:outline-ink">
+                <div className="relative h-52 overflow-hidden rounded-[1.25rem]">
+                  <ParkingPhoto src={`/images/lots/${lot.id}.jpg`} alt={`ลานจอด ${lot.name}`} scene={lot.scene} variant={i} className="transition duration-500 group-hover:scale-105" />
+                  <span className="num absolute left-3 top-3 rounded-full bg-white/95 px-3 py-1 text-sm font-semibold">
+                    ว่าง {now ? free : "–"} / {total}
+                  </span>
+                </div>
+                <div className="flex items-center gap-3 px-2 pb-1">
+                  <div className="min-w-0 flex-1">
+                    <h3 className="truncate font-display text-lg font-bold">{lot.name}</h3>
+                    <p className="flex flex-wrap items-center gap-x-3 gap-y-1 text-sm text-muted group-hover:text-ink/75">
+                      <span className="flex items-center gap-1"><Icon name="clock" className="h-4 w-4" />{lot.openHours}</span>
+                      <span className="flex gap-1">{floors.map((f, k) => <FloorBadge key={f.floor} floor={f.floor} index={k} size="xs" />)}</span>
+                    </p>
                   </div>
-                  <div className="flex flex-wrap gap-2">
-                    {floors.map((f, i) => (
-                      <span key={f.floor} className="flex items-center gap-1.5 rounded-[5px] bg-surface py-1 pl-1 pr-2.5">
-                        <FloorBadge floor={f.floor} index={i} size="xs" />
-                        <span className="num text-sm font-semibold">{now ? f.free : "–"}<span className="font-normal text-muted"> / {f.total}</span></span>
-                      </span>
-                    ))}
-                  </div>
-                  <div className="flex items-center justify-between gap-3 border-t border-line pt-4 text-sm text-muted">
-                    <span className="flex flex-wrap gap-x-4 gap-y-1">
-                      <span className="flex items-center gap-1.5"><Icon name="clock" className="h-4 w-4" />{lot.openHours}</span>
-                      <span className="num">ชั่วโมงละ {lot.rates.perHour} บาท</span>
-                    </span>
-                    <span className="flex items-center gap-1 font-display font-semibold text-ink">
-                      เข้าลานนี้<Icon name="arrow" className="h-4 w-4 transition-transform group-hover:translate-x-1" />
-                    </span>
-                  </div>
-                </Link>
-              </li>
-            );
-          })}
+                  <span className="grid h-11 w-11 shrink-0 place-items-center rounded-full bg-surface transition group-hover:bg-ink group-hover:text-white">
+                    <Icon name="arrow" className="h-5 w-5 transition-transform group-hover:translate-x-0.5" />
+                  </span>
+                </div>
+              </Link>
+            </li>
+          ))}
         </ul>
+      </section>
+
+      {/* ---------- วิธีใช้ ---------- */}
+      <section className="grid gap-px overflow-hidden rounded-[1.75rem] bg-line sm:grid-cols-3" aria-label="วิธีใช้งาน">
+        {[
+          { icon: "qr" as const, t: "สแกน QR ที่เสา", d: "หรือเลือกสถานที่จากรายการด้านบน" },
+          { icon: "search" as const, t: "ค้นหารถจากทะเบียน", d: "ดูเวลาจอด ค่าจอด และช่องที่จอด" },
+          { icon: "ticket" as const, t: "จ่ายด้วย ThaiQR", d: "แล้วขับออกได้ภายใน 15 นาที" },
+        ].map((s, i) => (
+          <div key={s.t} className="flex items-start gap-4 bg-white p-6">
+            <span className="num grid h-9 w-9 shrink-0 place-items-center rounded-full bg-paint font-display font-bold text-ink">{i + 1}</span>
+            <div className="grid gap-0.5">
+              <span className="flex items-center gap-2 font-display font-semibold">{s.t}<Icon name={s.icon} className="h-4 w-4 text-muted" /></span>
+              <span className="text-sm text-muted">{s.d}</span>
+            </div>
+          </div>
+        ))}
       </section>
     </div>
   );

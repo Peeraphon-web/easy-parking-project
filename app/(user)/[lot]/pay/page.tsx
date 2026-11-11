@@ -95,7 +95,7 @@ export default function PayPage() {
                 className="h-14 min-w-0 flex-1 rounded-md border-2 border-ink bg-white px-4 font-display text-xl" aria-label="เลขทะเบียน" autoComplete="off" />
               <button className="flex h-14 items-center gap-2 rounded-md bg-paint px-6 font-display text-lg font-bold text-ink hover:bg-paint-hi"><Icon name="search" />ค้นหา</button>
             </form>
-            <p className="text-sm text-muted">ลองค้นหา: กข 1234, 7กพ 5521, บต 889 (อีซี่ มอลล์) · จจ 1111 (กรีน คอนโด)</p>
+            <p className="text-sm text-muted">ลองค้นหา: กข 1234, 7กพ 5521, บต 889 (เซ็นทรัลเวิลด์) · จจ 1111 (พลัม คอนโด)</p>
           </div>
 
           {error && <p role="alert" className="rounded-md border border-bad/40 bg-bad/10 px-4 py-3 text-bad">{error}</p>}

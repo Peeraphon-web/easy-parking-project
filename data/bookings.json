@@ -1,7 +1,7 @@
 [
   {
     "id": "BK-1042",
-    "lotId": "easy-mall",
+    "lotId": "central-world",
     "plate": "กข 1234",
     "slot": "B1-A05",
     "date": "2026-11-10",
@@ -10,7 +10,7 @@
   },
   {
     "id": "BK-1043",
-    "lotId": "easy-mall",
+    "lotId": "central-world",
     "plate": "7กพ 5521",
     "slot": "1-C04",
     "date": "2026-11-12",
@@ -19,7 +19,7 @@
   },
   {
     "id": "BK-2001",
-    "lotId": "green-condo",
+    "lotId": "plum-condo",
     "plate": "บต 889",
     "slot": "G-C02",
     "date": "2026-11-09",

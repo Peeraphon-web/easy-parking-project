@@ -34,7 +34,7 @@ export function csvDateTime(iso: string | Date): string {
   return `${d.getFullYear()}-${p(d.getMonth() + 1)}-${p(d.getDate())} ${p(d.getHours())}:${p(d.getMinutes())}`;
 }
 
-// ชื่อไฟล์: easy-parking_finance_easy-mall_2026-11-11.csv
+// ชื่อไฟล์: easy-parking_finance_central-world_2026-11-11.csv
 export function reportName(kind: string, lotId: string): string {
   return `easy-parking_${kind}_${lotId}_${csvDateTime(new Date()).slice(0, 10)}`;
 }

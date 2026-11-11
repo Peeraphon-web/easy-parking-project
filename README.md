@@ -16,11 +16,11 @@ npm run dev
 | ทำอะไร | ไปที่ |
 |---|---|
 | เลือกสถานที่ | `/` |
-| หน้าแรกของลาน (ช่องว่าง + ผัง) | `/easy-mall` หรือ `/green-condo` |
-| ชำระค่าจอด | `/easy-mall/pay` ลองทะเบียน **กข 1234**, **7กพ 5521** |
-| จองที่จอด | `/easy-mall/book` |
-| ประวัติ | `/easy-mall/history` ลอง **กข 1234** |
-| ตู้ Kiosk ทางออก | `/kiosk/easy-mall/A` |
+| หน้าแรกของลาน (ช่องว่าง + ผัง) | `/central-world` หรือ `/plum-condo` |
+| ชำระค่าจอด | `/central-world/pay` ลองทะเบียน **กข 1234**, **7กพ 5521** |
+| จองที่จอด | `/central-world/book` |
+| ประวัติ | `/central-world/history` ลอง **กข 1234** |
+| ตู้ Kiosk ทางออก | `/kiosk/central-world/A` |
 | ผู้ดูแลระบบ | `/admin/login` → **admin / 1234** (Super Admin), **mall / 1234**, **condo / 1234** |
 
 ข้อมูลที่แก้ (จอง จ่าย ผัง สถานที่ สิทธิ์) เก็บใน localStorage ของเบราว์เซอร์

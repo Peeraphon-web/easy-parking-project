@@ -4,7 +4,7 @@
     "province": "กรุงเทพมหานคร",
     "type": "SUV",
     "color": "#2b2b2b",
-    "lotId": "easy-mall",
+    "lotId": "central-world",
     "slot": "1-A02",
     "minutesAgo": 42
   },
@@ -13,7 +13,7 @@
     "province": "สมุทรปราการ",
     "type": "Sedan",
     "color": "#c0c4d6",
-    "lotId": "easy-mall",
+    "lotId": "central-world",
     "slot": "B1-B05",
     "minutesAgo": 130
   },
@@ -22,7 +22,7 @@
     "province": "นนทบุรี",
     "type": "SUV",
     "color": "#c0c4d6",
-    "lotId": "easy-mall",
+    "lotId": "central-world",
     "slot": "B1-A04",
     "minutesAgo": 55
   },
@@ -31,7 +31,7 @@
     "province": "นนทบุรี",
     "type": "SUV",
     "color": "#e8e8ea",
-    "lotId": "easy-mall",
+    "lotId": "central-world",
     "slot": "1-B05",
     "minutesAgo": 55
   },
@@ -40,7 +40,7 @@
     "province": "สมุทรปราการ",
     "type": "Sedan",
     "color": "#2b2b2b",
-    "lotId": "easy-mall",
+    "lotId": "central-world",
     "slot": "B1-D06",
     "minutesAgo": 190
   },
@@ -49,7 +49,7 @@
     "province": "กรุงเทพมหานคร",
     "type": "Pickup",
     "color": "#4b5b8f",
-    "lotId": "easy-mall",
+    "lotId": "central-world",
     "slot": "B1-D02",
     "minutesAgo": 600
   },
@@ -58,7 +58,7 @@
     "province": "สมุทรปราการ",
     "type": "Sedan",
     "color": "#4b5b8f",
-    "lotId": "easy-mall",
+    "lotId": "central-world",
     "slot": "B1-C09",
     "minutesAgo": 130
   },
@@ -67,7 +67,7 @@
     "province": "ปทุมธานี",
     "type": "Sedan",
     "color": "#8a2f2f",
-    "lotId": "easy-mall",
+    "lotId": "central-world",
     "slot": "B1-B08",
     "minutesAgo": 42
   },
@@ -76,7 +76,7 @@
     "province": "กรุงเทพมหานคร",
     "type": "SUV",
     "color": "#2b2b2b",
-    "lotId": "green-condo",
+    "lotId": "plum-condo",
     "slot": "G-C03",
     "minutesAgo": 42
   },
@@ -85,7 +85,7 @@
     "province": "สมุทรปราการ",
     "type": "Sedan",
     "color": "#d9d9d9",
-    "lotId": "green-condo",
+    "lotId": "plum-condo",
     "slot": "G-C08",
     "minutesAgo": 240
   },
@@ -94,7 +94,7 @@
     "province": "ปทุมธานี",
     "type": "SUV",
     "color": "#e8e8ea",
-    "lotId": "green-condo",
+    "lotId": "plum-condo",
     "slot": "G-C01",
     "minutesAgo": 42
   },
@@ -103,7 +103,7 @@
     "province": "กรุงเทพมหานคร",
     "type": "SUV",
     "color": "#5f7d5a",
-    "lotId": "green-condo",
+    "lotId": "plum-condo",
     "slot": "G-B02",
     "minutesAgo": 190
   }
