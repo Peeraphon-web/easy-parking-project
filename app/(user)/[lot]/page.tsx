@@ -10,7 +10,6 @@ import Icon, { type IconName } from "@/components/Icon";
 import { useLots } from "@/context/LotContext";
 import { getSlotStatus } from "@/lib/booking";
 import { countByFloor, getLayout, getLot } from "@/lib/lots";
-import { kioskPath } from "@/lib/routes";
 import { useNow } from "@/lib/storage";
 
 // How full the floor is → words + colour (on the dark band)
@@ -157,18 +156,9 @@ export default function LotHomePage() {
           </ul>
         </div>
         <div className="grid content-start gap-3">
-          <h2 className="text-xl font-bold">ตู้ชำระเงินทางออก</h2>
+          <h2 className="text-xl font-bold">ติดต่อลานจอด</h2>
           <div className="grid gap-3 rounded-lg bg-white shadow-card p-5">
-          <p className="text-sm text-muted">หน้าจอตู้ที่ทางออก (สำหรับสาธิต)</p>
-          <div className="flex flex-wrap gap-2">
-            {lot.exits.map((e) => (
-              <Link key={e} href={kioskPath(lot.id, e)}
-                className="flex items-center gap-2 rounded-md border border-line bg-white px-4 py-2.5 font-display font-semibold hover:border-ink">
-                <Icon name="ticket" className="h-4 w-4" />ทางออก {e}
-              </Link>
-            ))}
-          </div>
-          <p className="flex items-center gap-2 border-t border-line pt-3 text-sm text-muted"><Icon name="phone" className="h-4 w-4" />ติดต่อเจ้าหน้าที่ <a href={`tel:${lot.phone}`} className="num font-semibold text-ink underline">{lot.phone}</a></p>
+          <p className="flex items-center gap-2 text-sm text-muted"><Icon name="phone" className="h-4 w-4" />ติดต่อเจ้าหน้าที่ <a href={`tel:${lot.phone}`} className="num font-semibold text-ink underline">{lot.phone}</a></p>
           </div>
         </div>
       </section>

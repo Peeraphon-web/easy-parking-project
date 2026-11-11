@@ -4,7 +4,7 @@
 import Link from "next/link";
 import { useParams, usePathname } from "next/navigation";
 import { getLot } from "@/lib/lots";
-import { kioskPath, userNav } from "@/lib/routes";
+import { userNav } from "@/lib/routes";
 import { useLots } from "@/context/LotContext";
 import Icon from "./Icon";
 
@@ -58,23 +58,7 @@ export default function Navbar() {
         ) : (
           <span className="px-3 py-2 text-[15px] text-white/75">เลือกสถานที่เพื่อเริ่มใช้งาน</span>
         )}
-        {lot && (
-          <Link href={kioskPath(lot.id, lot.exits[0] ?? "A")} className={`${link(false)} mr-6 md:mr-0 md:hidden`}>
-            <Icon name="ticket" className="h-[18px] w-[18px] shrink-0" />ตู้ Kiosk
-          </Link>
-        )}
       </nav>
-
-      {lot && (
-        <div className="hidden gap-1 border-t border-white/15 pt-4 md:grid">
-          <span className="mb-1 px-3 text-xs text-white/65">ตู้ชำระเงินทางออก (สาธิต)</span>
-          {lot.exits.map((e) => (
-            <Link key={e} href={kioskPath(lot.id, e)} className={link(false)}>
-              <Icon name="ticket" className="h-[18px] w-[18px] shrink-0" />ตู้ Kiosk ทางออก {e}
-            </Link>
-          ))}
-        </div>
-      )}
 
       <div className="mt-auto hidden gap-3 border-t border-white/15 pt-4 text-sm md:grid">
         {lot && (
