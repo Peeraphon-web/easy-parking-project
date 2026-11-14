@@ -7,6 +7,7 @@ import { useEffect, useState } from "react";
 import FloorBadge from "@/components/FloorBadge";
 import FloorMap, { FloorLegend } from "@/components/FloorMap";
 import PageHeader from "@/components/PageHeader";
+import QrMock from "@/components/QrMock";
 import { useLots } from "@/context/LotContext";
 import { RULES, bookingEnd, bookingStart, getAvailability, openRange, validateBooking } from "@/lib/booking";
 import { getCell, getLayout, getLot, todayISO } from "@/lib/lots";
@@ -26,7 +27,7 @@ function timeOptions(open: [number, number] | null) {
 
 export default function BookPage() {
   const { lot: lotId } = useParams<{ lot: string }>();
-  const { lots, layouts, bookings, setBookings } = useLots();
+  const { lots, layouts, bookings, setBookings, setPayments } = useLots();
   const lot = getLot(lotId, lots)!;
   const now = useNow();
   const open = openRange(lot);
@@ -39,6 +40,7 @@ export default function BookPage() {
   const [special, setSpecial] = useState(false);
   const [error, setError] = useState("");
   const [done, setDone] = useState<Booking | null>(null);
+  const [pending, setPending] = useState<Booking | null>(null); // รอจ่ายค่าบริการจอง
 
   // ค่าเริ่มต้น: เวลาที่จองได้เร็วที่สุด (ปัดขึ้นเป็นครึ่งชั่วโมง + 30 นาที)
   useEffect(() => {
@@ -74,8 +76,21 @@ export default function BookPage() {
     const err = validateBooking(draft, lot, layouts, bookings, now!);
     if (err) return setError(err);
     const b: Booking = { ...draft, id: `BK-${Date.now().toString().slice(-6)}`, status: "confirmed", createdAt: now!.toISOString() };
-    setBookings((prev) => [...prev, b]);
-    setDone(b); setSlot(null); setError(""); setSpecial(false);
+    if (!(lot.rates.bookingFee ?? 0)) return confirm(b);
+    setPending(b); setError("");
+  }
+
+  // จ่ายค่าบริการจองแล้ว → ยืนยันการจอง และบันทึกรายรับ (ไม่คืนเงิน)
+  function confirm(b: Booking) {
+    const fee = lot.rates.bookingFee ?? 0;
+    // เช็กซ้ำตอนจ่าย เผื่อมีคนจองช่องเดียวกันไประหว่างรอ
+    const err = validateBooking(b, lot, layouts, bookings, now!);
+    if (err) { setPending(null); return setError(err); }
+    const paid = { ...b, ...(fee ? { feePaid: fee } : {}) };
+    setBookings((prev) => [...prev, paid]);
+    if (fee) setPayments((prev) => [{ ref: `BF-${Date.now().toString().slice(-6)}`, lotId: lot.id, plate: b.plate, carType: "Sedan", slot: b.slot,
+      timeIn: now!.toISOString(), timeOut: now!.toISOString(), amount: fee, bookingFee: fee, method: "ThaiQR", kind: "booking" }, ...prev]);
+    setDone(paid); setPending(null); setSlot(null); setError(""); setSpecial(false);
   }
 
   const field = "h-12 rounded-md border border-ink/40 bg-white px-3 text-base";
@@ -131,7 +146,7 @@ export default function BookPage() {
           <dl className="num grid grid-cols-[auto_1fr] gap-x-3 gap-y-1 text-sm">
             <dt className="text-muted">ช่อง</dt><dd className="font-semibold">{slot ?? "ยังไม่ได้เลือก"}{kind !== "normal" && slot ? (kind === "ev" ? " · ช่องรถไฟฟ้า" : kind === "disabled" ? " · ช่องผู้พิการ" : " · ช่องมอเตอร์ไซค์") : ""}</dd>
             <dt className="text-muted">มาถึง</dt><dd>{formatDate(start)} {formatTime(start)} น.</dd>
-            <dt className="text-muted">ค่าบริการจอง</dt><dd>{lot.rates.bookingFee ?? 0} บาท <span className="text-muted">(จ่ายรวมกับค่าจอดตอนออก)</span></dd>
+            <dt className="text-muted">ค่าบริการจอง</dt><dd>{lot.rates.bookingFee ?? 0} บาท <span className="text-muted">(จ่ายตอนจอง ไม่คืนเงิน)</span></dd>
           </dl>
           <label className="grid gap-1 text-sm">เลขทะเบียน
             <input id="book-plate" value={plate} onChange={(e) => setPlate(e.target.value)} placeholder="กข 1234" className={field} />
@@ -143,13 +158,25 @@ export default function BookPage() {
             </label>
           )}
           {error && <p role="alert" className="rounded-md border border-bad/40 bg-bad/10 px-3 py-2 text-sm text-bad">{error}</p>}
-          <button className="h-13 rounded-md bg-paint px-5 py-3 font-display text-lg font-bold text-ink hover:bg-paint-hi">ยืนยันการจอง</button>
+          {pending ? (
+            <div role="dialog" aria-label="ชำระค่าบริการจอง" className="grid justify-items-center gap-3 rounded-md border border-line p-4 text-center">
+              <p className="font-display text-lg font-bold">สแกนจ่ายค่าบริการจอง {lot.rates.bookingFee ?? 0} บาท</p>
+              <QrMock seed={pending.plate + pending.slot + pending.time} size={180} />
+              <p className="text-sm text-muted">ช่อง {pending.slot} จะถูกยืนยันเมื่อชำระแล้ว · ไม่คืนเงินเมื่อยกเลิกหรือไม่มา</p>
+              <div className="flex gap-2">
+                <button type="button" onClick={() => confirm(pending)} className="rounded-md bg-paint px-5 py-2.5 font-display font-bold text-ink hover:bg-paint-hi">ชำระแล้ว</button>
+                <button type="button" onClick={() => setPending(null)} className="rounded-md border border-line px-4 py-2.5 font-semibold">ยกเลิก</button>
+              </div>
+            </div>
+          ) : (
+            <button className="h-13 rounded-md bg-paint px-5 py-3 font-display text-lg font-bold text-ink hover:bg-paint-hi">จองและชำระค่าบริการ {lot.rates.bookingFee ?? 0} บาท</button>
+          )}
           <ul className="grid list-disc gap-1 border-t border-line pt-3 pl-4 text-sm text-muted">
             <li>ช่องจะถูกกันไว้ตั้งแต่ {RULES.holdBeforeMin} นาทีก่อนเวลาเข้า</li>
             <li>ถ้าไม่มาภายใน {RULES.graceAfterMin} นาทีหลังเวลาเข้า ระบบจะปล่อยช่องให้ผู้อื่น</li>
             <li>ถ้าช่องที่จองมีรถอื่นจอดอยู่ ระบบจะย้ายให้เป็นช่องประเภทเดียวกัน ชั้นเดียวกันก่อน</li>
-            <li>ค่าจอดคิดตามเวลาจอดจริง + ค่าบริการจอง {lot.rates.bookingFee ?? 0} บาท จ่ายรวมกันตอนออก</li>
-            <li>ยกเลิกก่อนเวลามาถึงได้ ไม่มีค่าใช้จ่าย</li>
+            <li>จ่ายค่าบริการจอง {lot.rates.bookingFee ?? 0} บาททันทีตอนจอง ไม่คืนเงินเมื่อยกเลิกหรือไม่มา · ค่าจอดคิดตามเวลาจริง จ่ายตอนออก</li>
+            <li>จองที่รออยู่ได้ไม่เกิน {RULES.maxActivePerPlate} รายการต่อทะเบียน · ไม่มาตามนัด {RULES.noShowLimit} ครั้งใน {RULES.noShowWindowDays} วัน งดจอง {RULES.banDays} วัน</li>
           </ul>
         </form>
       </div>
@@ -158,7 +185,7 @@ export default function BookPage() {
         <section role="status" className="grid gap-2 rounded-lg bg-white shadow-card ring-2 ring-ok/50 p-5">
           <h2 className="text-2xl font-bold text-ok">จองสำเร็จ</h2>
           <p>รหัสการจอง <b className="num rounded-lg bg-paint-soft px-2 py-0.5 font-display text-2xl text-paint-ink">{done.id}</b></p>
-          <p className="num text-sm text-muted">ช่อง {done.slot} · มาถึง {formatDate(bookingStart(done))} {done.time} น. · ทะเบียน {done.plate} · ค่าบริการจอง {lot.rates.bookingFee ?? 0} บาท</p>
+          <p className="num text-sm text-muted">ช่อง {done.slot} · มาถึง {formatDate(bookingStart(done))} {done.time} น. · ทะเบียน {done.plate} · ชำระค่าบริการจอง {done.feePaid ?? 0} บาทแล้ว</p>
           <p className="text-sm">เก็บรหัสนี้ไว้ ใช้คู่กับเลขทะเบียนเพื่อดู เลื่อนเวลา หรือยกเลิกการจอง</p>
           <Link href={`/${lot.id}/history?plate=${encodeURIComponent(done.plate)}&code=${done.id}`} className="text-sm text-paint-ink underline">จัดการการจองนี้</Link>
         </section>

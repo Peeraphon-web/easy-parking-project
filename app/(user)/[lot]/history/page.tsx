@@ -130,14 +130,14 @@ export default function HistoryPage() {
                     <dt className="text-muted">ทะเบียน</dt><dd>{booking.plate}</dd>
                     <dt className="text-muted">ช่อง</dt><dd className="font-semibold">{booking.slot}</dd>
                     <dt className="text-muted">มาถึง</dt><dd>{formatDate(bookingStart(booking))} {formatTime(bookingStart(booking))} น.</dd>
-                    <dt className="text-muted">ค่าบริการจอง</dt><dd>{lot.rates.bookingFee ?? 0} บาท (จ่ายรวมตอนออก ยกเลิกฟรี)</dd>
+                    <dt className="text-muted">ค่าบริการจอง</dt><dd>{lot.rates.bookingFee ?? 0} บาท (จ่ายแล้วตอนจอง ไม่คืนเงิน)</dd>
                   </dl>
                   {status === "confirmed" && !editing && (
                     <div className="flex flex-wrap gap-2">
                       {changeBlock
                         ? <span className="self-center text-sm text-muted">{changeBlock}</span>
                         : <button type="button" onClick={() => startEdit(booking)} className="rounded-md border border-line bg-white px-3 py-2 text-sm font-semibold hover:border-ink">เปลี่ยนเวลามาถึง ({RULES.maxChanges - (booking.changes ?? 0)} ครั้งที่เหลือ)</button>}
-                      <button type="button" onClick={() => { update(booking.id, { status: "cancelled" }); setMsg({ ok: true, text: "ยกเลิกการจองแล้ว ไม่มีค่าใช้จ่าย ช่องถูกปล่อยให้ผู้อื่น" }); }}
+                      <button type="button" onClick={() => { update(booking.id, { status: "cancelled" }); setMsg({ ok: true, text: "ยกเลิกการจองแล้ว ช่องถูกปล่อยให้ผู้อื่น (ค่าบริการจองไม่คืน)" }); }}
                         className="rounded-md border border-bad/40 bg-white px-3 py-2 text-sm font-semibold text-bad hover:bg-bad/5">ยกเลิกการจอง</button>
                     </div>
                   )}

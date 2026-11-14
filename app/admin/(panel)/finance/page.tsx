@@ -51,7 +51,7 @@ export default function FinancePage() {
       { header: "เลขที่ใบเสร็จ", value: (p) => p.ref },
       { header: "สถานที่", value: (p) => lotName(p.lotId) },
       { header: "ทะเบียน", value: (p) => p.plate },
-      { header: "ประเภทรถ", value: (p) => p.carType },
+      { header: "ประเภทรถ", value: (p) => (p.kind === "booking" ? "ค่าจองล่วงหน้า" : p.carType) },
       { header: "ช่องจอด", value: (p) => p.slot },
       { header: "เวลาเข้า", value: (p) => csvDateTime(p.timeIn) },
       { header: "เวลาออก", value: (p) => csvDateTime(p.timeOut) },

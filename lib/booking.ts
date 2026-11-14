@@ -8,6 +8,9 @@
 // 5. รับจองไม่เกิน 80% ของช่องทั้งลานในช่วงเวลาเดียวกัน (สำรองไว้ย้ายช่องและให้รถที่ไม่ได้จอง)
 // 6. เลยเวลาเริ่ม 15 นาทีแล้วรถยังไม่เข้า → no_show ปล่อยช่องคืน
 // 7. รถที่จองเข้ามาแล้วช่องมีรถอื่นจอดทับ → ย้ายไปช่องว่างประเภทเดียวกัน ชั้นเดียวกันก่อน
+// 9. กันจองเล่น: ทะเบียนเดียวมีการจองที่ยังไม่ถึงเวลาได้ไม่เกิน 2 รายการ (ทุกสถานที่)
+//    และถ้าไม่มาตามนัด 2 ครั้งใน 30 วัน → งดจอง 7 วันนับจากครั้งล่าสุด
+// 10. จ่ายค่าบริการจองทันทีตอนจอง (ThaiQR) ไม่คืนเงินเมื่อยกเลิกหรือไม่มา · ที่ทางออกจ่ายแค่ค่าจอด
 // 8. เปลี่ยนเวลามาถึงได้ 2 ครั้ง จนถึง 15 นาทีหลังเวลาเดิม · ถ้าช่องเดิมไม่ว่างในเวลาใหม่ เสนอช่องประเภทเดียวกันแทน
 import { getCell, getSensorStatus, slotCodes } from "@/lib/lots";
 import { normalizePlate } from "@/lib/parking";
@@ -24,7 +27,29 @@ export const RULES = {
   lastBookBeforeCloseMin: 60, // เวลามาถึงต้องก่อนปิดอย่างน้อย
   maxChanges: 2,        // เปลี่ยนเวลามาถึงได้กี่ครั้ง
   changeLeadMinutes: 10, // เวลาใหม่ต้องห่างจากตอนนี้อย่างน้อย (ตอนเปลี่ยนเวลา)
+  maxActivePerPlate: 2, // การจองที่ยังไม่ถึงเวลาต่อทะเบียน (ทุกสถานที่)
+  noShowLimit: 2,       // ไม่มาตามนัดกี่ครั้ง ถึงจะงดจอง
+  noShowWindowDays: 30, // นับไม่มาตามนัดย้อนหลังกี่วัน
+  banDays: 7,           // งดจองกี่วัน นับจากครั้งที่ไม่มาล่าสุด
 };
+
+// ---------- กันจองเล่น ----------
+// คืนข้อความเหตุผลถ้าทะเบียนนี้จองไม่ได้ตอนนี้ (null = จองได้)
+export function abuseCheck(plate: string, bookings: Booking[], now: Date, ignoreId?: string): string | null {
+  const mine = bookings.filter((b) => b.id !== ignoreId && normalizePlate(b.plate) === normalizePlate(plate));
+  const day = 24 * 60 * MIN;
+  const noShows = mine
+    .filter((b) => resolveStatus(b, now) === "no_show" && now.getTime() - bookingStart(b).getTime() <= RULES.noShowWindowDays * day)
+    .map((b) => bookingStart(b).getTime())
+    .sort((a, b) => b - a);
+  if (noShows.length >= RULES.noShowLimit) {
+    const until = new Date(noShows[0] + RULES.banDays * day);
+    if (until > now) return `ทะเบียนนี้ไม่มาตามนัด ${noShows.length} ครั้งใน ${RULES.noShowWindowDays} วัน จึงงดจองถึง ${until.toLocaleDateString("th-TH")} (ยังเข้าจอดแบบไม่จองได้ตามปกติ)`;
+  }
+  const active = mine.filter((b) => resolveStatus(b, now) === "confirmed").length;
+  if (active >= RULES.maxActivePerPlate) return `ทะเบียนนี้มีการจองที่รออยู่ ${active} รายการแล้ว (สูงสุด ${RULES.maxActivePerPlate}) ยกเลิกรายการเดิมก่อนจองใหม่`;
+  return null;
+}
 
 const MIN = 60000;
 
@@ -106,6 +131,7 @@ export function validateBooking(
   const start = bookingStart(draft);
   const end = bookingEnd(draft);
   if (Number.isNaN(start.getTime())) return "กรุณาเลือกวันและเวลา";
+  if (!ignoreId) { const abuse = abuseCheck(draft.plate, bookings, now); if (abuse) return abuse; }
 
   const lead = (start.getTime() - now.getTime()) / MIN;
   const minLead = opts.minLeadMinutes ?? RULES.minLeadMinutes;
@@ -167,7 +193,8 @@ export function findArrivalBooking(lotId: string, plate: string, bookings: Booki
 // ---------- ค่าบริการจอง ----------
 // รถคันนี้เข้ามาด้วยการจองไหม (สถานะ "เข้าจอดแล้ว") → เก็บค่าบริการจองรวมกับค่าจอด
 export function bookingFeeFor(lot: Lot, plate: string, bookings: Booking[]): number {
-  const booked = bookings.some((b) => b.lotId === lot.id && b.status === "checked_in" && normalizePlate(b.plate) === normalizePlate(plate));
+  // จ่ายค่าบริการจองไปแล้วตอนจอง (feePaid) → ไม่เก็บซ้ำที่ทางออก
+  const booked = bookings.some((b) => b.lotId === lot.id && b.status === "checked_in" && !b.feePaid && normalizePlate(b.plate) === normalizePlate(plate));
   return booked ? lot.rates.bookingFee ?? 0 : 0;
 }
 

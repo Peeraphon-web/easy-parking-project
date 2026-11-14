@@ -76,6 +76,7 @@ export type Booking = {
   createdAt?: string;  // ISO
   originalSlot?: string; // ช่องเดิม ถ้าระบบย้ายช่องให้ตอนรถเข้า
   changes?: number;      // เปลี่ยนเวลามาถึงไปแล้วกี่ครั้ง (สูงสุด 2)
+  feePaid?: number;      // ค่าบริการจองที่จ่ายไปแล้วตอนจอง (ไม่คืนเงิน)
 };
 
 export type PayMethod = "ThaiQR" | "Cash";
@@ -90,6 +91,7 @@ export type Payment = {
   timeOut: string;     // ISO
   amount: number;       // ยอดรวมที่จ่าย
   bookingFee?: number;  // ส่วนที่เป็นค่าบริการจอง (ถ้ามี)
+  kind?: "parking" | "booking"; // booking = จ่ายค่าบริการจองล่วงหน้า (ไม่ใช่รถเข้าออก)
   method: PayMethod;
 };
 

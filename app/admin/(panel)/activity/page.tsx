@@ -32,7 +32,7 @@ export default function ActivityPage() {
   const lotPays = payments.filter((p) => p.lotId === lot.id);
   const last = lotPays[0]?.timeOut ?? "";
   const since = last ? new Date(new Date(last).getTime() - days * 86400000).toISOString() : "";
-  const scope = lotPays.filter((p) => p.timeOut >= since);
+  const scope = lotPays.filter((p) => p.kind !== "booking" && p.timeOut >= since);
 
   const hours = Array.from({ length: 24 }, (_, h) => scope.filter((p) => Number(p.timeIn.slice(11, 13)) === h).length);
   const peak = hours.indexOf(Math.max(...hours));

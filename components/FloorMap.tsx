@@ -72,7 +72,10 @@ export default function FloorMap({ layout, mode = "status", status = {}, heat = 
           text = pct > 55 ? "text-ink" : "text-white/85";
           title = `${cell.code}: ใช้ ${used} ครั้ง`;
         } else if (!edit) {
-          if (st === "busy") { fill = "bg-asphalt-3"; text = "text-white/75"; }
+          // สีแยกชัดทั้งค่าความสว่างและลวดลาย (ไม่พึ่งสีอย่างเดียว): ว่าง = เขียว · มีรถ = เทาจาง · ถูกจอง = ลายทางฟ้า
+          if (st === "free") { fill = "bg-ok"; text = "text-white"; }
+          if (st === "busy") { fill = "bg-asphalt-3/60"; text = "text-white/40 line-through"; }
+          if (st === "reserved") { style = { background: "repeating-linear-gradient(45deg,#3f6fb5 0 5px,#2a4d82 5px 10px)" }; text = "text-white"; }
           if (mode === "select" && st === "free") clickable = true;
           title = `${cell.code} · ${STATUS_WORD[st]}`;
         } else title = cell.code;
@@ -143,9 +146,9 @@ export function FloorLegend({ mode = "status" }: { mode?: "status" | "heat" }) {
   const bay = "inline-block h-5 w-4 bg-asphalt border-x-2 border-t-2 border-white";
   return (
     <div className="flex flex-wrap items-center gap-x-4 gap-y-1.5 text-sm text-muted">
-      <span className="flex items-center gap-1.5"><i className={`${bay} outline outline-1 outline-asphalt`} />ว่าง</span>
-      <span className="flex items-center gap-1.5"><i className={`${bay} shadow-[inset_0_0_0_2px_var(--color-asphalt)] !bg-asphalt-3`} />มีรถ</span>
-      <span className="flex items-center gap-1.5"><i className={`${bay} border-dashed outline outline-1 outline-asphalt`} />ถูกจอง</span>
+      <span className="flex items-center gap-1.5"><i className="inline-block h-4 w-4 rounded-[3px] bg-ok" />ว่าง</span>
+      <span className="flex items-center gap-1.5"><i className="inline-block h-4 w-4 rounded-[3px] bg-asphalt-3/60" />มีรถ</span>
+      <span className="flex items-center gap-1.5"><i className="inline-block h-4 w-4 rounded-[3px]" style={{ background: "repeating-linear-gradient(45deg,#3f6fb5 0 3px,#2a4d82 3px 6px)" }} />ถูกจอง</span>
       <span className="flex items-center gap-1.5"><i className="inline-block h-4 w-4 rounded-[3px] bg-paint" />ช่องของคุณ</span>
       <span className="flex items-center gap-1.5"><Icon name="ev" className="h-4 w-4" />ชาร์จไฟฟ้า</span>
       <span className="flex items-center gap-1.5"><Icon name="disabled" className="h-4 w-4" />ผู้พิการ</span>

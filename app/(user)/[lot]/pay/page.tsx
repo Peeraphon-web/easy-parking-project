@@ -75,7 +75,7 @@ export default function PayPage() {
         <dt className="text-white/80">{lot.rates.freeMinutes} นาทีแรก</dt><dd>ฟรี</dd>
         <dt className="text-white/80">ชั่วโมงละ</dt><dd>{lot.rates.perHour} บาท</dd>
         <dt className="text-white/80">เหมาสูงสุดต่อวัน</dt><dd>{lot.rates.dayMax} บาท</dd>
-        <dt className="text-white/80">ค่าบริการจอง (ถ้าจอง)</dt><dd>{lot.rates.bookingFee} บาท</dd>
+        <dt className="text-white/80">ค่าบริการจอง</dt><dd>จ่ายตอนจองแล้ว</dd>
       </dl>
       <p className="border-t border-white/15 pt-3 text-sm text-white/80">เศษของชั่วโมงคิดเป็น 1 ชั่วโมง · จ่ายแล้วขับออกได้ภายใน 15 นาที</p>
     </section>
