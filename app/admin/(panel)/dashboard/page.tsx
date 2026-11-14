@@ -49,8 +49,9 @@ export default function DashboardPage() {
           <ul className="grid gap-4">
             {floors.map((f, i) => {
               const p = f.free / Math.max(1, f.total);
-              const word = p > 0.3 ? "ว่างมาก" : p > 0 ? "ใกล้เต็ม" : "เต็ม";
-              const tone = p > 0.3 ? "text-ok" : p > 0 ? "text-warn" : "text-bad";
+              // ใกล้เต็ม = เหลือช่องว่าง 1–5 ช่อง
+              const word = f.free > 5 ? "ว่าง" : f.free > 0 ? "ใกล้เต็ม" : "เต็ม";
+              const tone = f.free > 5 ? "text-ok" : f.free > 0 ? "text-warn" : "text-bad";
               return (
                 <li key={f.floor} className="grid grid-cols-[auto_1fr_auto] items-center gap-4">
                   <FloorBadge floor={f.floor} index={i} size="md" />

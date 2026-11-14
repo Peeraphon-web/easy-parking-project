@@ -15,8 +15,9 @@ import { useNow } from "@/lib/storage";
 // How full the floor is → words + colour (on the dark band)
 function fullness(free: number, total: number) {
   const p = total ? free / total : 0;
-  if (p > 0.3) return { p, word: "ว่างมาก", tone: "text-ok-lt" };
-  if (p > 0) return { p, word: "ใกล้เต็ม", tone: "text-white" };
+  // ใกล้เต็ม = เหลือช่องว่าง 1–5 ช่อง
+  if (free > 5) return { p, word: "ว่าง", tone: "text-ok-lt" };
+  if (free > 0) return { p, word: "ใกล้เต็ม", tone: "text-white" };
   return { p, word: "เต็ม", tone: "text-bad-lt" };
 }
 
