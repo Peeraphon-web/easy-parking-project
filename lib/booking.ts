@@ -80,6 +80,7 @@ export const STATUS_TH: Record<BookingStatus, string> = {
   completed: "เสร็จสิ้น",
   cancelled: "ยกเลิกแล้ว",
   no_show: "ไม่มาตามนัด",
+  refunded: "หาช่องไม่ได้ · คืนเงินแล้ว",
 };
 
 // ---------- เวลาเปิดทำการ ----------
@@ -178,6 +179,20 @@ export function assignOnArrival(booking: Booking, layouts: Layout[], bookings: B
     .flatMap((l) => l.cells.filter((c) => c.type === "slot" && c.code && (c.kind ?? "normal") === kind).map((c) => c.code!));
   const found = candidates.find((code) => sensor[code] === "free" && avail[code] === "free");
   return found ? { slot: found, moved: true } : null;
+}
+
+// ผู้ใช้แจ้งว่า "ช่องที่จองไม่ว่าง" (มาถึงแล้วเจอรถอื่นจอดอยู่)
+// → หาช่องประเภทเดียวกันที่ว่างอยู่ตอนนี้ ชั้นเดียวกันก่อน (ไม่นับช่องเดิม) · ไม่มีเลย = null (ต้องคืนเงิน)
+export function reassignSlot(booking: Booking, layouts: Layout[], bookings: Booking[], now: Date): string | null {
+  const sensor = getSensorStatus(booking.lotId, layouts);
+  const orig = getCell(layouts, booking.lotId, booking.slot);
+  const kind = orig?.cell.kind ?? "normal";
+  const avail = getAvailability(booking.lotId, layouts, bookings, now, bookingEnd(booking), now, booking.id);
+  return layouts
+    .filter((l) => l.lotId === booking.lotId)
+    .sort((a, b) => Number(b.floor === orig?.floor) - Number(a.floor === orig?.floor))
+    .flatMap((l) => l.cells.filter((c) => c.type === "slot" && c.code && (c.kind ?? "normal") === kind).map((c) => c.code!))
+    .find((code) => code !== booking.slot && sensor[code] === "free" && avail[code] === "free") ?? null;
 }
 
 // การจองของทะเบียนนี้ที่ใกล้เวลาที่สุด (สำหรับตอนรถเข้า: ตั้งแต่ 15 นาทีก่อน ถึง 15 นาทีหลังเวลาเริ่ม)

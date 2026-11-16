@@ -6,7 +6,7 @@ import { useParams, useSearchParams } from "next/navigation";
 import { useState } from "react";
 import PageHeader from "@/components/PageHeader";
 import { useLots } from "@/context/LotContext";
-import { RULES, STATUS_TH, arrivalTimeOptions, bookingStart, canChangeTime, planReschedule, resolveStatus } from "@/lib/booking";
+import { RULES, STATUS_TH, arrivalTimeOptions, bookingStart, canChangeTime, planReschedule, reassignSlot, resolveStatus } from "@/lib/booking";
 import { getLot, todayISO } from "@/lib/lots";
 import { formatBaht, formatDate, formatTime, samePlate } from "@/lib/parking";
 import { useNow } from "@/lib/storage";
@@ -18,12 +18,13 @@ const BADGE: Record<string, string> = {
   completed: "bg-line text-muted",
   cancelled: "bg-line text-muted",
   no_show: "bg-bad/10 text-bad",
+  refunded: "bg-line text-muted",
 };
 
 export default function HistoryPage() {
   const { lot: lotId } = useParams<{ lot: string }>();
   const search = useSearchParams();
-  const { lots, layouts, bookings, setBookings, payments } = useLots();
+  const { lots, layouts, bookings, setBookings, payments, setPayments } = useLots();
   const lot = getLot(lotId, lots)!;
   const now = useNow();
 
@@ -40,6 +41,11 @@ export default function HistoryPage() {
   const booking = plate && code
     ? bookings.find((b) => b.lotId === lot.id && b.id.toUpperCase() === code.trim().toUpperCase() && samePlate(b.plate, plate))
     : undefined;
+  // การจองที่ยังใช้งานอยู่ของทะเบียนนี้ (ยังไม่ถึงเวลา หรือเข้าจอดแล้ว) · ไม่แสดงรหัสเต็ม กันคนอื่นมาแก้แทน
+  const activeBookings = plate && now
+    ? bookings.filter((b) => b.lotId === lot.id && samePlate(b.plate, plate) && ["confirmed", "checked_in"].includes(resolveStatus(b, now)))
+        .sort((a, b) => bookingStart(a).getTime() - bookingStart(b).getTime())
+    : [];
   const myPayments = plate ? payments.filter((p) => p.lotId === lot.id && samePlate(p.plate, plate)).slice(0, 20) : [];
 
   function update(id: string, change: Partial<Booking>) {
@@ -72,6 +78,21 @@ export default function HistoryPage() {
     setMsg({ ok: true, text: `เปลี่ยนเวลามาถึงเป็น ${formatDate(new Date(`${newDate}T${newTime}:00`))} ${newTime} น. ช่อง ${slot} แล้ว (เปลี่ยนได้อีก ${left} ครั้ง)` });
   }
 
+  // "ช่องที่จองไม่ว่าง": ย้ายไปช่องประเภทเดียวกันที่ว่าง · ไม่มีเลย → คืนค่าบริการจอง
+  function reportTaken(b: Booking) {
+    if (!now) return;
+    const slot = reassignSlot(b, layouts, bookings, now);
+    if (slot) {
+      update(b.id, { slot, originalSlot: b.originalSlot ?? b.slot });
+      return setMsg({ ok: true, text: `ย้ายให้แล้ว: ไปที่ช่อง ${slot} ได้เลย (ช่องเดิม ${b.slot} มีรถอื่นจอดอยู่) · เจ้าหน้าที่ได้รับแจ้งแล้ว` });
+    }
+    const fee = b.feePaid ?? 0;
+    update(b.id, { status: "refunded" });
+    if (fee) setPayments((prev) => [{ ref: `RF-${Date.now().toString().slice(-6)}`, lotId: lot.id, plate: b.plate, carType: "Sedan", slot: b.slot,
+      timeIn: now.toISOString(), timeOut: now.toISOString(), amount: -fee, bookingFee: -fee, method: "ThaiQR", kind: "booking" }, ...prev]);
+    setMsg({ ok: false, text: `ขออภัย ตอนนี้ไม่มีช่องประเภทเดียวกันว่าง ระบบคืนค่าบริการจอง ${fee} บาทแล้ว จอดช่องว่างใดก็ได้ หรือติดต่อเจ้าหน้าที่ ${lot.phone}` });
+  }
+
   const status = booking && now ? resolveStatus(booking, now) : null;
   const changeBlock = booking && now ? canChangeTime(booking, now) : "…";
   const field = "h-13 min-w-0 rounded-md border-2 border-ink/80 bg-white px-4 text-base";
@@ -88,6 +109,25 @@ export default function HistoryPage() {
 
       <div className="grid items-start gap-8 lg:grid-cols-[minmax(0,1fr)_24rem]">
         <div className="grid gap-6">
+          {plate && activeBookings.length > 0 && (
+            <section className="grid gap-3 rounded-lg border-2 border-paint bg-white p-5" aria-label="การจองปัจจุบัน">
+              <h2 className="text-xl font-bold">การจองปัจจุบัน · {plate}</h2>
+              <ul className="grid gap-2">
+                {activeBookings.map((b) => {
+                  const st = resolveStatus(b, now!);
+                  return (
+                    <li key={b.id} className="num flex flex-wrap items-center gap-x-4 gap-y-1 rounded-md bg-surface px-4 py-3">
+                      <span className={`rounded-[4px] px-2.5 py-0.5 text-sm font-semibold ${BADGE[st]}`}>{STATUS_TH[st]}</span>
+                      <span>ช่อง <b className="font-display text-lg">{b.slot}</b></span>
+                      <span className="text-muted">มาถึง {formatDate(bookingStart(b))} {b.time} น.</span>
+                      <span className="text-sm text-muted">รหัส {b.id.slice(0, 3)}••{b.id.slice(-2)}</span>
+                    </li>
+                  );
+                })}
+              </ul>
+              <p className="text-sm text-muted">กรอกรหัสการจองเต็มด้านบน เพื่อเลื่อนเวลา ยกเลิก หรือแจ้งว่าช่องไม่ว่าง</p>
+            </section>
+          )}
           {plate ? (
             <section className="grid gap-3 rounded-lg bg-white shadow-card p-5">
               <h2 className="text-xl font-bold">ใบเสร็จย้อนหลัง · {plate}</h2>
@@ -130,7 +170,7 @@ export default function HistoryPage() {
                     <dt className="text-muted">ทะเบียน</dt><dd>{booking.plate}</dd>
                     <dt className="text-muted">ช่อง</dt><dd className="font-semibold">{booking.slot}</dd>
                     <dt className="text-muted">มาถึง</dt><dd>{formatDate(bookingStart(booking))} {formatTime(bookingStart(booking))} น.</dd>
-                    <dt className="text-muted">ค่าบริการจอง</dt><dd>{lot.rates.bookingFee ?? 0} บาท (จ่ายแล้วตอนจอง ไม่คืนเงิน)</dd>
+                    <dt className="text-muted">ค่าบริการจอง</dt><dd>{booking.feePaid ?? lot.rates.bookingFee ?? 0} บาท (จ่ายแล้วตอนจอง · คืนเงินเฉพาะเมื่อระบบหาช่องให้ไม่ได้)</dd>
                   </dl>
                   {status === "confirmed" && !editing && (
                     <div className="flex flex-wrap gap-2">
@@ -159,6 +199,12 @@ export default function HistoryPage() {
                         <button type="button" onClick={() => { setEditing(false); setProposal(null); setMsg(null); }} className="underline">ไม่เปลี่ยน</button>
                       </div>
                     </div>
+                  )}
+                  {(status === "confirmed" || status === "checked_in") && (
+                    <button type="button" onClick={() => reportTaken(booking)}
+                      className="flex items-center justify-center gap-2 rounded-md bg-asphalt px-4 py-3 font-display font-semibold text-white hover:bg-asphalt-2">
+                      ช่องที่จองไม่ว่าง (มีรถอื่นจอดอยู่)
+                    </button>
                   )}
                   {status !== "confirmed" && <p className="text-sm text-muted">การจองนี้แก้ไขไม่ได้แล้ว ({status ? STATUS_TH[status] : ""})</p>}
                   {msg && <p className={`rounded-md px-3 py-2 text-sm ${msg.ok ? "bg-paint-soft text-paint-ink" : "bg-bad/10 text-bad"}`}>{msg.text}</p>}

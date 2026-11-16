@@ -1,6 +1,6 @@
 "use client";
 // Driver-side menu: an asphalt sidebar with a yellow paint rule on its right (same build as the admin sidebar).
-// On a phone it folds into a top bar with a scrolling menu row.
+// On a phone: logo bar on top, and the menu becomes 4 equal tabs fixed to the bottom of the screen.
 import Link from "next/link";
 import { useParams, usePathname } from "next/navigation";
 import { getLot } from "@/lib/lots";
@@ -26,7 +26,7 @@ export default function Navbar() {
   const lot = getLot(params.lot, lots);
 
   const link = (active: boolean) =>
-    `flex items-center gap-2.5 whitespace-nowrap rounded-md px-3 py-2 text-[15px] transition-colors ${active ? "bg-paint font-semibold text-ink" : "text-white/85 hover:bg-white/10 hover:text-white"}`;
+    `flex flex-col items-center gap-1 whitespace-nowrap rounded-md px-1 py-2 text-xs transition-colors md:flex-row md:gap-2.5 md:px-3 md:text-[15px] ${active ? "bg-paint font-semibold text-ink" : "text-white/85 hover:bg-white/10 hover:text-white"}`;
 
   return (
     <aside className="z-20 flex flex-col gap-4 border-b-4 border-paint bg-asphalt px-4 py-3 text-white md:sticky md:top-0 md:h-screen md:w-64 md:shrink-0 md:gap-5 md:border-b-0 md:border-r-4 md:p-4">
@@ -42,7 +42,8 @@ export default function Navbar() {
         </Link>
       )}
 
-      <nav className="-mx-4 flex gap-1 overflow-x-auto px-4 [mask-image:linear-gradient(to_right,black_88%,transparent)] md:mx-0 md:flex-col md:px-0 md:[mask-image:none]" aria-label="เมนูหลัก">
+      {/* มือถือ: แถบแท็บติดขอบล่างจอ (fixed) · คอม: รายการแนวตั้งใน sidebar */}
+      <nav className={`${lot ? "grid grid-cols-4" : "flex"} fixed inset-x-0 bottom-0 z-30 gap-1 border-t-4 border-paint bg-asphalt px-2 pt-2 pb-[calc(0.5rem+env(safe-area-inset-bottom))] md:static md:flex md:flex-col md:border-0 md:bg-transparent md:p-0`} aria-label="เมนูหลัก">
         {lot ? (
           userNav(lot.id).map((item, i) => {
             const active = item.href === `/${lot.id}` ? pathname === item.href : pathname.startsWith(item.href);

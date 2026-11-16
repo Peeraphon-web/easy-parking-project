@@ -9,7 +9,7 @@ import { useLots } from "@/context/LotContext";
 import { MAX_UPLOAD_MB, fitsInStorage, resizeImage, sizeKB } from "@/lib/image";
 import type { Lot } from "@/types";
 
-const EMPTY: Lot = { id: "", name: "", address: "", openHours: "24 ชั่วโมง", phone: "", rates: { freeMinutes: 15, perHour: 20, dayMax: 300, bookingFee: 10 }, floors: ["1"], exits: ["A"] };
+const EMPTY: Lot = { id: "", name: "", address: "", openHours: "24 ชั่วโมง", phone: "", rates: { freeMinutes: 15, perHour: 20, dayMax: 300, bookingFee: 20 }, floors: ["1"], exits: ["A"] };
 
 export default function LotsPage() {
   const { lots, setLots, setLayouts, resetAll } = useLots();

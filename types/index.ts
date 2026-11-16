@@ -63,7 +63,7 @@ export type Car = Omit<CarRecord, "minutesAgo"> & { timeIn: string };
 
 // confirmed = จองแล้ว รอรถมา · checked_in = รถเข้าจอดแล้ว · completed = จ่ายเงินออกแล้ว
 // cancelled = ผู้ใช้ยกเลิก · no_show = เลยเวลา 15 นาทีแล้วรถไม่มา (ระบบคิดให้อัตโนมัติ)
-export type BookingStatus = "confirmed" | "checked_in" | "completed" | "cancelled" | "no_show";
+export type BookingStatus = "confirmed" | "checked_in" | "completed" | "cancelled" | "no_show" | "refunded";
 
 export type Booking = {
   id: string;
