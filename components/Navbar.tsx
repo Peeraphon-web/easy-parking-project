@@ -32,9 +32,6 @@ export default function Navbar() {
     <aside className="z-20 flex flex-col gap-4 border-b-4 border-paint bg-asphalt px-4 py-3 text-white md:sticky md:top-0 md:h-screen md:w-64 md:shrink-0 md:gap-5 md:border-b-0 md:border-r-4 md:p-4">
       <div className="flex items-center gap-3">
         <Link href="/" className="text-xl"><Wordmark /></Link>
-        <Link href="/admin/login" className="ml-auto whitespace-nowrap rounded-md px-3 py-1.5 text-sm text-white/85 ring-1 ring-inset ring-white/25 hover:bg-white/10 md:hidden">
-          ผู้ดูแลระบบ
-        </Link>
       </div>
 
       {lot && (
@@ -67,9 +64,6 @@ export default function Navbar() {
             <span>ติดต่อเจ้าหน้าที่ <b className="num font-display">{lot.phone}</b></span>
           </a>
         )}
-        <Link href="/admin/login" className="flex items-center justify-center rounded-md px-3 py-2 text-white/85 ring-1 ring-inset ring-white/25 hover:bg-white/10">
-          ผู้ดูแลระบบ
-        </Link>
       </div>
     </aside>
   );

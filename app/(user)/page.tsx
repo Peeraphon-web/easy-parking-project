@@ -37,9 +37,6 @@ export default function SelectLotPage() {
             <a href="#lots" className="rounded-full bg-paint px-6 py-3 font-display font-semibold text-ink hover:bg-paint-hi">
               เลือกสถานที่
             </a>
-            <Link href="/admin/login" className="rounded-full border border-ink/25 bg-white px-6 py-3 font-display font-semibold hover:border-ink">
-              สำหรับผู้ดูแล
-            </Link>
           </div>
         </div>
 
